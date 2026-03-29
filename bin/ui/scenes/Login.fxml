@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.LoginController">
+    <padding>
+        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+    </padding>
+
+    <Label text="Marketplace Login" styleClass="title-label" />
+    <Label text="Access the Electronic Marketplace" styleClass="subtitle-label" />
+
+    <VBox spacing="10" maxWidth="300" alignment="CENTER_LEFT">
+        <Label text="Email Address"/>
+        <TextField fx:id="emailField" promptText="Enter your email" />
+        
+        <Label text="Password"/>
+        <PasswordField fx:id="passwordField" promptText="Enter your password" />
+    </VBox>
+
+    <Label fx:id="errorLabel" textFill="#dc3545" visible="false" />
+
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Login" onAction="#handleLogin" minWidth="100"/>
+        <Button text="Register" onAction="#handleRegister" minWidth="100" style="-fx-background-color: #6c757d;"/>
+    </HBox>
+</VBox>

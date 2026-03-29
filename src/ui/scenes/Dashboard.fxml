@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.DashboardController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #ffffff; -fx-border-color: #e9ecef; -fx-border-width: 0 0 1 0;">
+            <padding><Insets top="15" right="20" bottom="15" left="20"/></padding>
+            <Label fx:id="welcomeLabel" styleClass="title-label"/>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="Add Item" onAction="#navigateToAddItem"/>
+            <Button text="View All Items" onAction="#navigateToViewItems"/>
+            <Button text="Logout" onAction="#handleLogout" style="-fx-background-color: #dc3545;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+            <Label text="Marketplace Dashboard" styleClass="title-label"/>
+            
+            <GridPane hgap="20" vgap="20" alignment="CENTER">
+                 <Button text="View Notifications" onAction="#navigateToNotifications" prefWidth="200" prefHeight="50" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                 <Button text="My Purchases" onAction="#navigateToPurchases" prefWidth="200" prefHeight="50" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                 <Button text="Manage Sales" onAction="#navigateToSales" prefWidth="200" prefHeight="50" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                 <Button text="Create Alert" onAction="#navigateToAddAlert" prefWidth="200" prefHeight="50" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            </GridPane>
+        </VBox>
+    </center>
+</BorderPane>

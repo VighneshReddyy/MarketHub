@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.ViewItemsController" spacing="15">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <Button text="&lt; Back to Dashboard" onAction="#navigateBack" style="-fx-background-color: transparent; -fx-text-fill: #0d6efd;" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Label text="View Items" styleClass="title-label" />
+        <Region HBox.hgrow="ALWAYS" />
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Category:" />
+        <ComboBox fx:id="filterCategoryCombo" prefWidth="150" promptText="All Categories"/>
+        <Label text="Min Price (₹):" />
+        <TextField fx:id="filterMinPriceField" prefWidth="100"/>
+        <Label text="Max Price (₹):" />
+        <TextField fx:id="filterMaxPriceField" prefWidth="100"/>
+        <Label text="Condition:" />
+        <ComboBox fx:id="filterConditionCombo" prefWidth="100" promptText="Any">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Any" />
+                    <String fx:value="New" />
+                    <String fx:value="Used" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <Button text="Filter" onAction="#handleFilter" />
+        <Button text="Clear" onAction="#handleClearFilter" style="-fx-background-color: #6c757d;" />
+    </HBox>
+
+    <TableView fx:id="itemsTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idCol" text="ID" prefWidth="50">
+                <cellValueFactory><PropertyValueFactory property="itemId" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="titleCol" text="Title" prefWidth="200">
+                <cellValueFactory><PropertyValueFactory property="title" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="imageCol" text="Image" prefWidth="100" />
+            <TableColumn fx:id="priceCol" text="Price (₹)" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="price" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="sellerCol" text="Seller ID" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="sellerId" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="conditionCol" text="Condition" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="conditionType" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="usageCol" text="Usage (m)" prefWidth="80">
+                <cellValueFactory><PropertyValueFactory property="usageMonths" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="actionCol" text="Action" prefWidth="100" />
+        </columns>
+    </TableView>
+
+    <Label fx:id="statusLabel" visible="false" />
+
+</VBox>

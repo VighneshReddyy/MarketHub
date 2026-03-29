@@ -36,7 +36,7 @@ public class MarketplaceService {
     }
 
     // Item Services
-    public boolean addItem(Item item) {
+    public int addItem(Item item) {
         return itemDAO.addItem(item);
     }
 
@@ -44,13 +44,8 @@ public class MarketplaceService {
         return itemDAO.getAllItems();
     }
 
-    public List<Item> filterItems(int categoryId, BigDecimal minPrice, BigDecimal maxPrice) {
-         if (minPrice == null && maxPrice == null) {
-              return itemDAO.getItemsByCategory(categoryId);
-         } else if (minPrice != null && maxPrice != null){
-              return itemDAO.filterItems(categoryId, minPrice, maxPrice);
-         }
-         return itemDAO.getItemsByCategory(categoryId); // Simplified fallback
+    public List<Item> filterItems(int categoryId, BigDecimal minPrice, BigDecimal maxPrice, String condition) {
+         return itemDAO.filterItems(categoryId, minPrice, maxPrice, condition);
     }
 
     // Order Services

@@ -13,10 +13,12 @@ public class Item {
     private String conditionType; // 'new', 'used'
     private String status; // 'available', 'sold'
     private Timestamp createdAt;
+    private Integer usageMonths;
+    private String imageUrl; // For UI display purposes (populated via JOIN in DAO)
 
     public Item() {}
 
-    public Item(int itemId, int sellerId, int categoryId, String title, String description, BigDecimal price, String conditionType, String status, Timestamp createdAt) {
+    public Item(int itemId, int sellerId, int categoryId, String title, String description, BigDecimal price, String conditionType, String status, Timestamp createdAt, Integer usageMonths) {
         this.itemId = itemId;
         this.sellerId = sellerId;
         this.categoryId = categoryId;
@@ -26,6 +28,7 @@ public class Item {
         this.conditionType = conditionType;
         this.status = status;
         this.createdAt = createdAt;
+        this.usageMonths = usageMonths;
     }
 
     public Item(int sellerId, int categoryId, String title, String description, BigDecimal price, String conditionType) {
@@ -57,10 +60,15 @@ public class Item {
     public void setStatus(String status) { this.status = status; }
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    public Integer getUsageMonths() { return usageMonths; }
+    public void setUsageMonths(Integer usageMonths) { this.usageMonths = usageMonths; }
+
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
     @Override
     public String toString() {
-        return String.format("Item #%d: [%s] %s | Price: $%.2f | Condition: %s | Status: %s",
+        return String.format("Item #%d: [%s] %s | Price: ₹%.2f | Condition: %s | Status: %s",
                 itemId, categoryId, title, price, conditionType, status);
     }
 }
