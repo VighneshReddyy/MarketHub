@@ -2,16 +2,24 @@ package ui.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import ui.MainApp;
 
 public class DashboardController {
 
     @FXML private Label welcomeLabel;
+    @FXML private MenuButton profileMenu;
+    @FXML private MenuItem userInfoItem;
+    @FXML private MenuItem emailInfoItem;
 
     @FXML
     public void initialize() {
         if (MainApp.currentUser != null) {
             welcomeLabel.setText("Welcome, " + MainApp.currentUser.getName());
+            profileMenu.setText("Profile");
+            userInfoItem.setText("User ID: " + MainApp.currentUser.getUserId());
+            emailInfoItem.setText("Email: " + MainApp.currentUser.getEmail());
         }
     }
 
@@ -43,8 +51,7 @@ public class DashboardController {
 
     @FXML
     public void navigateToAddAlert() {
-       // Optional: Add an Alert logic if you wish for full UI functionality
-       System.out.println("Alert UI logic goes here - for now redirecting to Dashboard");
+       MainApp.switchScene("scenes/AddAlert.fxml");
     }
 
     @FXML

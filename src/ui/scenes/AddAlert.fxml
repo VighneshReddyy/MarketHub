@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.AddAlertController" spacing="20" alignment="CENTER">
+    <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+    
+    <Label text="Create Alert" styleClass="title-label"/>
+    
+    <GridPane hgap="10" vgap="15" alignment="CENTER">
+        <Label text="Category:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <ComboBox fx:id="categoryCombo" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Label text="Min Price (₹):" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="minPriceField" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label text="Max Price (₹):" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="maxPriceField" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <Label text="Condition:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <ComboBox fx:id="conditionCombo" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="3" promptText="Any">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Any" />
+                    <String fx:value="New" />
+                    <String fx:value="Used" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </GridPane>
+
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Create Alert" onAction="#handleCreateAlert" style="-fx-background-color: #0d6efd; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        <Button text="Cancel" onAction="#navigateBack" style="-fx-background-color: #dc3545;"/>
+    </HBox>
+
+    <Label fx:id="statusLabel" visible="false"/>
+
+</VBox>

@@ -10,8 +10,15 @@
             <padding><Insets top="15" right="20" bottom="15" left="20"/></padding>
             <Label fx:id="welcomeLabel" styleClass="title-label"/>
             <Region HBox.hgrow="ALWAYS" />
-            <Button text="Add Item" onAction="#navigateToAddItem"/>
-            <Button text="View All Items" onAction="#navigateToViewItems"/>
+            <MenuButton fx:id="profileMenu" text="Profile" style="-fx-font-weight: bold; -fx-background-color: #f8f9fa;">
+                <items>
+                    <MenuItem fx:id="userInfoItem" text="User ID: " disable="true"/>
+                    <MenuItem fx:id="emailInfoItem" text="Email: " disable="true"/>
+                    <SeparatorMenuItem />
+                    <MenuItem text="My Purchases" onAction="#navigateToPurchases"/>
+                    <MenuItem text="View Notifications" onAction="#navigateToNotifications"/>
+                </items>
+            </MenuButton>
             <Button text="Logout" onAction="#handleLogout" style="-fx-background-color: #dc3545;"/>
         </HBox>
     </top>
@@ -22,8 +29,8 @@
             <Label text="Marketplace Dashboard" styleClass="title-label"/>
             
             <GridPane hgap="20" vgap="20" alignment="CENTER">
-                 <Button text="View Notifications" onAction="#navigateToNotifications" prefWidth="200" prefHeight="50" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                 <Button text="My Purchases" onAction="#navigateToPurchases" prefWidth="200" prefHeight="50" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                 <Button text="Buy" onAction="#navigateToViewItems" prefWidth="200" prefHeight="50" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                 <Button text="Sell" onAction="#navigateToAddItem" prefWidth="200" prefHeight="50" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
                  <Button text="Manage Sales" onAction="#navigateToSales" prefWidth="200" prefHeight="50" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                  <Button text="Create Alert" onAction="#navigateToAddAlert" prefWidth="200" prefHeight="50" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             </GridPane>
