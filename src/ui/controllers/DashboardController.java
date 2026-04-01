@@ -39,13 +39,12 @@ public class DashboardController {
     }
 
     @FXML
-    public void navigateToPurchases() {
-        // Shared scene, we will pass a toggle parameter or default state
+    public void navigateToSales() {
         MainApp.switchScene("scenes/Transactions.fxml");
     }
 
     @FXML
-    public void navigateToSales() {
+    public void navigateToMyListings() {
         MainApp.switchScene("scenes/Transactions.fxml");
     }
 

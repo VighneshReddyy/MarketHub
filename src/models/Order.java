@@ -12,6 +12,8 @@ public class Order {
     private Timestamp orderDate;
     private String status; // 'pending', 'completed', 'cancelled'
     private String buyerEmail; // For display purposes in sales management
+    private String itemName;
+    private Timestamp listingDate;
 
     public Order() {}
 
@@ -28,6 +30,12 @@ public class Order {
     public Order(int orderId, int buyerId, int sellerId, int itemId, BigDecimal price, Timestamp orderDate, String status, String buyerEmail) {
         this(orderId, buyerId, sellerId, itemId, price, orderDate, status);
         this.buyerEmail = buyerEmail;
+    }
+
+    public Order(int orderId, int buyerId, int sellerId, int itemId, BigDecimal price, Timestamp orderDate, String status, String buyerEmail, String itemName, Timestamp listingDate) {
+        this(orderId, buyerId, sellerId, itemId, price, orderDate, status, buyerEmail);
+        this.itemName = itemName;
+        this.listingDate = listingDate;
     }
 
     public Order(int buyerId, int sellerId, int itemId, BigDecimal price, String status) {
@@ -56,6 +64,12 @@ public class Order {
 
     public String getBuyerEmail() { return buyerEmail; }
     public void setBuyerEmail(String buyerEmail) { this.buyerEmail = buyerEmail; }
+
+    public String getItemName() { return itemName; }
+    public void setItemName(String itemName) { this.itemName = itemName; }
+
+    public Timestamp getListingDate() { return listingDate; }
+    public void setListingDate(Timestamp listingDate) { this.listingDate = listingDate; }
 
     @Override
     public String toString() {

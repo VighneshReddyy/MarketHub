@@ -50,8 +50,8 @@
             <TableColumn fx:id="priceCol" text="Price (₹)" prefWidth="100">
                 <cellValueFactory><PropertyValueFactory property="price" /></cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="sellerCol" text="Seller ID" prefWidth="100">
-                <cellValueFactory><PropertyValueFactory property="sellerId" /></cellValueFactory>
+            <TableColumn fx:id="sellerCol" text="Seller" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="sellerName" /></cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="conditionCol" text="Condition" prefWidth="100">
                 <cellValueFactory><PropertyValueFactory property="conditionType" /></cellValueFactory>

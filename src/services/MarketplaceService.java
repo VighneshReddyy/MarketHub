@@ -12,6 +12,7 @@ public class MarketplaceService {
     private final OrderDAO orderDAO = new OrderDAO();
     private final AlertDAO alertDAO = new AlertDAO();
     private final NotificationDAO notificationDAO = new NotificationDAO();
+    private final ItemService itemService = new ItemService();
 
     // User Services
     public boolean registerUser(User user) {
@@ -40,12 +41,28 @@ public class MarketplaceService {
         return itemDAO.addItem(item);
     }
 
-    public List<Item> getAllItems() {
-        return itemDAO.getAllItems();
+    public List<Item> getAllItems(int excludeUserId) {
+        return itemDAO.getAllItemsExcludeUser(excludeUserId);
     }
 
-    public List<Item> filterItems(int categoryId, BigDecimal minPrice, BigDecimal maxPrice, String condition) {
-         return itemDAO.filterItems(categoryId, minPrice, maxPrice, condition);
+    public List<Item> filterItems(int categoryId, BigDecimal minPrice, BigDecimal maxPrice, String condition, int excludeUserId) {
+         return itemDAO.filterItems(categoryId, minPrice, maxPrice, condition, excludeUserId);
+    }
+
+    public List<Item> getMyListings(int userId) {
+        return itemDAO.getItemsBySellerId(userId);
+    }
+
+    public Item getItemById(int itemId) {
+        return itemService.getItemById(itemId);
+    }
+
+    public boolean updateItem(Item item, java.io.File imageFile) {
+        return itemService.updateItem(item, imageFile);
+    }
+
+    public boolean deleteItem(int itemId) {
+        return itemService.deleteItem(itemId);
     }
 
     // Order Services

@@ -15,9 +15,15 @@ import java.util.List;
 public class TransactionController {
 
     @FXML private TableView<Order> transactionTable;
+    @FXML private TableColumn<Order, Integer> itemCol;
+    @FXML private TableColumn<Order, String> itemNameCol;
+    @FXML private TableColumn<Order, java.math.BigDecimal> priceCol;
+    @FXML private TableColumn<Order, String> statusCol;
+    @FXML private TableColumn<Order, java.sql.Timestamp> dateCol;
     @FXML private TableColumn<Order, HBox> actionCol;
     @FXML private RadioButton radioPurchases;
     @FXML private RadioButton radioSales;
+    @FXML private RadioButton radioActiveListings;
     @FXML private Label statusLabel;
 
     private final OrderService orderService = new OrderService();
@@ -28,6 +34,7 @@ public class TransactionController {
     public void initialize() {
         radioPurchases.setToggleGroup(toggleGroup);
         radioSales.setToggleGroup(toggleGroup);
+        radioActiveListings.setToggleGroup(toggleGroup);
         
         actionCol.setCellValueFactory(param -> {
             Order order = param.getValue();
@@ -44,6 +51,11 @@ public class TransactionController {
                 rejectBtn.setOnAction(e -> handleReject(order));
                 
                 buttonBox.getChildren().addAll(acceptBtn, rejectBtn);
+            } else if (radioActiveListings.isSelected()) {
+                Button editBtn = new Button("Edit Listing");
+                editBtn.setStyle("-fx-background-color: #0d6efd; -fx-text-fill: white;");
+                editBtn.setOnAction(e -> handleEditListing(order));
+                buttonBox.getChildren().add(editBtn);
             }
             return new SimpleObjectProperty<>(buttonBox);
         });
@@ -65,8 +77,19 @@ public class TransactionController {
         
         if (radioPurchases.isSelected()) {
             orders = orderService.getBuyerTransactions(MainApp.currentUser.getUserId());
-        } else {
+        } else if (radioSales.isSelected()) {
             orders = orderService.getSellerTransactions(MainApp.currentUser.getUserId());
+        } else {
+            // Re-use Order model for Listing display (mapping Item fields to Order fields for the table)
+            List<models.Item> myItems = (new services.MarketplaceService()).getMyListings(MainApp.currentUser.getUserId());
+            orders = new java.util.ArrayList<>();
+            for (models.Item item : myItems) {
+                Order pseudoOrder = new Order(0, item.getSellerId(), item.getItemId(), item.getPrice(), item.getStatus());
+                pseudoOrder.setItemName(item.getTitle());
+                pseudoOrder.setListingDate(item.getCreatedAt());
+                // We can use pseudoOrder to populate the table columns
+                orders.add(pseudoOrder);
+            }
         }
         
         orderList.addAll(orders);
@@ -91,6 +114,16 @@ public class TransactionController {
          } else {
               showStatus("Failed to reject order.", false);
          }
+    }
+
+    private void handleEditListing(Order order) {
+        models.Item item = (new services.MarketplaceService()).getItemById(order.getItemId());
+        if (item != null) {
+            MainApp.tempData.put("editItem", item);
+            MainApp.switchScene("scenes/EditItem.fxml");
+        } else {
+            showStatus("Item not found.", false);
+        }
     }
 
     @FXML

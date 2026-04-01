@@ -25,13 +25,14 @@ public class OrderDAO {
     }
 
     public List<Order> getOrdersByBuyerId(int buyerId) {
-        return getOrdersQuery("SELECT * FROM Orders WHERE buyer_id = ?", buyerId);
+        return getOrdersQuery("SELECT O.*, I.title AS item_name, I.created_at AS listing_date FROM Orders O JOIN Items I ON O.item_id = I.item_id WHERE O.buyer_id = ?", buyerId);
     }
     
     public List<Order> getOrdersBySellerId(int sellerId) {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT O.*, U.email AS buyer_email FROM Orders O " +
+        String sql = "SELECT O.*, U.email AS buyer_email, I.title AS item_name, I.created_at AS listing_date FROM Orders O " +
                      "JOIN Users U ON O.buyer_id = U.user_id " +
+                     "JOIN Items I ON O.item_id = I.item_id " +
                      "WHERE O.seller_id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -46,7 +47,9 @@ public class OrderDAO {
                         rs.getBigDecimal("price"),
                         rs.getTimestamp("order_date"),
                         rs.getString("status"),
-                        rs.getString("buyer_email")
+                        rs.getString("buyer_email"),
+                        rs.getString("item_name"),
+                        rs.getTimestamp("listing_date")
                     ));
                 }
             }
@@ -76,7 +79,7 @@ public class OrderDAO {
             stmt.setInt(1, userId);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    orders.add(new Order(
+                    Order ord = new Order(
                         rs.getInt("order_id"),
                         rs.getInt("buyer_id"),
                         rs.getInt("seller_id"),
@@ -84,7 +87,12 @@ public class OrderDAO {
                         rs.getBigDecimal("price"),
                         rs.getTimestamp("order_date"),
                         rs.getString("status")
-                    ));
+                    );
+                    try {
+                        ord.setItemName(rs.getString("item_name"));
+                        ord.setListingDate(rs.getTimestamp("listing_date"));
+                    } catch (SQLException ignore) {}
+                    orders.add(ord);
                 }
             }
         } catch (SQLException e) {

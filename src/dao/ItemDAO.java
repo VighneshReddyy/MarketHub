@@ -8,6 +8,40 @@ import java.util.List;
 import java.math.BigDecimal;
 
 public class ItemDAO {
+    
+    public List<Item> getAllItemsExcludeUser(int userId) {
+        String sql = "SELECT i.*, u.name AS seller_name, u.email AS seller_email, MAX(m.file_path) AS file_path " +
+                     "FROM Items i " +
+                     "JOIN Users u ON i.seller_id = u.user_id " +
+                     "LEFT JOIN ItemMedia m ON i.item_id = m.item_id AND m.media_type = 'image' " +
+                     "WHERE i.seller_id <> ? " +
+                     "GROUP BY i.item_id, u.name, u.email";
+        return getItemsQueryWithIntParam(sql, userId);
+    }
+    
+    public Item getItemById(int itemId) {
+        String sql = "SELECT i.*, u.name AS seller_name, u.email AS seller_email, MAX(m.file_path) AS file_path " +
+                     "FROM Items i " +
+                     "JOIN Users u ON i.seller_id = u.user_id " +
+                     "LEFT JOIN ItemMedia m ON i.item_id = m.item_id AND m.media_type = 'image' " +
+                     "WHERE i.item_id = ? " +
+                     "GROUP BY i.item_id, u.name, u.email";
+        List<Item> items = getItemsQueryWithIntParam(sql, itemId);
+        if (items != null && !items.isEmpty()) {
+            return items.get(0);
+        }
+        return null;
+    }
+
+    public List<Item> getItemsBySellerId(int sellerId) {
+        String sql = "SELECT i.*, u.name AS seller_name, u.email AS seller_email, MAX(m.file_path) AS file_path " +
+                     "FROM Items i " +
+                     "JOIN Users u ON i.seller_id = u.user_id " +
+                     "LEFT JOIN ItemMedia m ON i.item_id = m.item_id AND m.media_type = 'image' " +
+                     "WHERE i.seller_id = ? " +
+                     "GROUP BY i.item_id, u.name, u.email";
+        return getItemsQueryWithIntParam(sql, sellerId);
+    }
 
     public int addItem(Item item) {
         String sql = "INSERT INTO Items (seller_id, category_id, title, description, price, condition_type, status, usage_months) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -37,6 +71,41 @@ public class ItemDAO {
         return -1;
     }
 
+    public boolean updateItem(Item item) {
+        String sql = "UPDATE Items SET category_id = ?, title = ?, description = ?, price = ?, condition_type = ?, status = ?, usage_months = ? WHERE item_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, item.getCategoryId());
+            stmt.setString(2, item.getTitle());
+            stmt.setString(3, item.getDescription());
+            stmt.setBigDecimal(4, item.getPrice());
+            stmt.setString(5, item.getConditionType());
+            stmt.setString(6, item.getStatus());
+            if (item.getUsageMonths() != null) {
+                stmt.setInt(7, item.getUsageMonths());
+            } else {
+                stmt.setNull(7, Types.INTEGER);
+            }
+            stmt.setInt(8, item.getItemId());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteItem(int itemId) {
+        String sql = "DELETE FROM Items WHERE item_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, itemId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean updateItemStatus(int itemId, String status) {
         String sql = "UPDATE Items SET status = ? WHERE item_id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -51,27 +120,41 @@ public class ItemDAO {
     }
 
     public List<Item> getAllItems() {
-        return getItemsQuery("SELECT i.*, MAX(m.file_path) AS file_path FROM Items i LEFT JOIN ItemMedia m ON i.item_id = m.item_id AND m.media_type = 'image' GROUP BY i.item_id");
+        return getItemsQuery("SELECT i.*, u.name AS seller_name, u.email AS seller_email, MAX(m.file_path) AS file_path " +
+                            "FROM Items i " +
+                            "JOIN Users u ON i.seller_id = u.user_id " +
+                            "LEFT JOIN ItemMedia m ON i.item_id = m.item_id AND m.media_type = 'image' " +
+                            "GROUP BY i.item_id, u.name, u.email");
     }
 
     public List<Item> getItemsByCategory(int categoryId) {
-        String sql = "SELECT i.*, MAX(m.file_path) AS file_path FROM Items i LEFT JOIN ItemMedia m ON i.item_id = m.item_id AND m.media_type = 'image' WHERE i.category_id = ? GROUP BY i.item_id";
+        String sql = "SELECT i.*, u.name AS seller_name, u.email AS seller_email, MAX(m.file_path) AS file_path " +
+                     "FROM Items i " +
+                     "JOIN Users u ON i.seller_id = u.user_id " +
+                     "LEFT JOIN ItemMedia m ON i.item_id = m.item_id AND m.media_type = 'image' " +
+                     "WHERE i.category_id = ? " +
+                     "GROUP BY i.item_id, u.name, u.email";
         return getItemsQueryWithIntParam(sql, categoryId);
     }
     
-    public List<Item> filterItems(int categoryId, BigDecimal minPrice, BigDecimal maxPrice, String condition) {
+    public List<Item> filterItems(int categoryId, BigDecimal minPrice, BigDecimal maxPrice, String condition, int excludeUserId) {
         List<Item> items = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT i.*, MAX(m.file_path) AS file_path FROM Items i LEFT JOIN ItemMedia m ON i.item_id = m.item_id AND m.media_type = 'image' WHERE 1=1");
+        StringBuilder sql = new StringBuilder("SELECT i.*, u.name AS seller_name, u.email AS seller_email, MAX(m.file_path) AS file_path " +
+                                              "FROM Items i " +
+                                              "JOIN Users u ON i.seller_id = u.user_id " +
+                                              "LEFT JOIN ItemMedia m ON i.item_id = m.item_id AND m.media_type = 'image' " +
+                                              "WHERE i.seller_id <> ?");
 
         if (categoryId > 0) sql.append(" AND i.category_id = ?");
         if (minPrice != null && maxPrice != null) sql.append(" AND i.price BETWEEN ? AND ?");
         if (condition != null && !condition.isEmpty() && !"Any".equalsIgnoreCase(condition)) sql.append(" AND i.condition_type = ?");
-        sql.append(" GROUP BY i.item_id");
+        sql.append(" GROUP BY i.item_id, u.name, u.email");
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             
             int paramIndex = 1;
+            stmt.setInt(paramIndex++, excludeUserId);
             if (categoryId > 0) stmt.setInt(paramIndex++, categoryId);
             if (minPrice != null && maxPrice != null) {
                  stmt.setBigDecimal(paramIndex++, minPrice);
@@ -137,8 +220,10 @@ public class ItemDAO {
         );
         try {
              item.setImageUrl(rs.getString("file_path"));
+             item.setSellerName(rs.getString("seller_name"));
+             item.setSellerEmail(rs.getString("seller_email"));
         } catch (SQLException e) {
-             // Column may not exist in some simpler queries
+             // Columns may not exist in some simpler queries
         }
         return item;
     }

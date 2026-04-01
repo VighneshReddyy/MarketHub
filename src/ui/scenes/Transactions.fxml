@@ -17,16 +17,17 @@
 
     <HBox spacing="10" alignment="CENTER">
         <RadioButton fx:id="radioPurchases" text="My Purchases" selected="true" onAction="#handleToggleChange"/>
-        <RadioButton fx:id="radioSales" text="Incoming Sales" onAction="#handleToggleChange"/>
+        <RadioButton fx:id="radioSales" text="My Sales" onAction="#handleToggleChange"/>
+        <RadioButton fx:id="radioActiveListings" text="Active Listings" onAction="#handleToggleChange"/>
     </HBox>
 
     <TableView fx:id="transactionTable" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn fx:id="idCol" text="Order ID" prefWidth="70">
-                <cellValueFactory><PropertyValueFactory property="orderId" /></cellValueFactory>
-            </TableColumn>
             <TableColumn fx:id="itemCol" text="Item ID" prefWidth="70">
                 <cellValueFactory><PropertyValueFactory property="itemId" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="itemNameCol" text="Item Name" prefWidth="150">
+                <cellValueFactory><PropertyValueFactory property="itemName" /></cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="priceCol" text="Price (₹)" prefWidth="100">
                 <cellValueFactory><PropertyValueFactory property="price" /></cellValueFactory>
@@ -34,8 +35,8 @@
             <TableColumn fx:id="statusCol" text="Status" prefWidth="100">
                 <cellValueFactory><PropertyValueFactory property="status" /></cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="dateCol" text="Date" prefWidth="150">
-                <cellValueFactory><PropertyValueFactory property="orderDate" /></cellValueFactory>
+            <TableColumn fx:id="dateCol" text="Listing Date" prefWidth="150">
+                <cellValueFactory><PropertyValueFactory property="listingDate" /></cellValueFactory>
             </TableColumn>
             <!-- Dynamic column for Actions mapping to sales -->
             <TableColumn fx:id="actionCol" text="Action (Sales Only)" prefWidth="150" />

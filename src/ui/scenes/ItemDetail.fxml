@@ -19,6 +19,7 @@
     <VBox spacing="10" alignment="CENTER_LEFT" maxWidth="500">
         <Label fx:id="priceLabel" style="-fx-font-size: 18px; -fx-text-fill: #198754; -fx-font-weight: bold;" />
         <Label fx:id="conditionLabel" style="-fx-font-size: 14px;" />
+        <Label fx:id="sellerLabel" style="-fx-font-size: 14px; -fx-text-fill: #6c757d;" />
         <Label fx:id="statusLabel" style="-fx-font-size: 14px;" />
         <Label text="Description:" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
         <Label fx:id="descriptionLabel" wrapText="true" style="-fx-font-size: 14px;" />

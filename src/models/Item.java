@@ -15,6 +15,8 @@ public class Item {
     private Timestamp createdAt;
     private Integer usageMonths;
     private String imageUrl; // For UI display purposes (populated via JOIN in DAO)
+    private String sellerName; // For UI display purposes
+    private String sellerEmail; // For UI display purposes
 
     public Item() {}
 
@@ -65,6 +67,12 @@ public class Item {
 
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    public String getSellerName() { return sellerName; }
+    public void setSellerName(String sellerName) { this.sellerName = sellerName; }
+
+    public String getSellerEmail() { return sellerEmail; }
+    public void setSellerEmail(String sellerEmail) { this.sellerEmail = sellerEmail; }
 
     @Override
     public String toString() {

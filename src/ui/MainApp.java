@@ -9,10 +9,13 @@ import models.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainApp extends Application {
 
     public static User currentUser;
+    public static final Map<String, Object> tempData = new HashMap<>();
     private static Stage primaryStage;
 
     @Override

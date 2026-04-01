@@ -14,8 +14,10 @@ import java.util.List;
 
 public class NotificationController {
 
-    @FXML private ListView<Notification> notificationList;
-    @FXML private Label statusLabel;
+    @FXML
+    private ListView<Notification> notificationList;
+    @FXML
+    private Label statusLabel;
 
     private final NotificationService notificationService = new NotificationService();
     private ObservableList<Notification> observableNotifications = FXCollections.observableArrayList();
@@ -46,7 +48,8 @@ public class NotificationController {
 
     @FXML
     public void loadNotifications() {
-        if (MainApp.currentUser == null) return;
+        if (MainApp.currentUser == null)
+            return;
         List<Notification> notifs = notificationService.getUserNotifications(MainApp.currentUser.getUserId());
         observableNotifications.clear();
         observableNotifications.addAll(notifs);
@@ -57,18 +60,18 @@ public class NotificationController {
     public void handleMarkAsRead() {
         Notification selected = notificationList.getSelectionModel().getSelectedItem();
         if (selected == null) {
-             showStatus("Please select a notification first.");
-             return;
+            showStatus("Please select a notification first.");
+            return;
         }
-        
+
         if (!selected.isRead()) {
-             boolean success = notificationService.markNotificationRead(selected.getNotificationId());
-             if (success) {
-                  showStatus("Marked as read.");
-                  loadNotifications(); // Reload to refresh styling
-             } else {
-                  showStatus("Failed to mark as read.");
-             }
+            boolean success = notificationService.markNotificationRead(selected.getNotificationId());
+            if (success) {
+                showStatus("Marked as read.");
+                loadNotifications(); // Reload to refresh styling
+            } else {
+                showStatus("Failed to mark as read.");
+            }
         }
     }
 

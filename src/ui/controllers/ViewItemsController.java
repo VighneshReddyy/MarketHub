@@ -88,7 +88,8 @@ public class ViewItemsController {
 
     private void loadAllItems() {
         itemsList.clear();
-        List<Item> items = itemService.getAllItems();
+        int userId = (MainApp.currentUser != null) ? MainApp.currentUser.getUserId() : 0;
+        List<Item> items = itemService.getAllItems(userId);
         itemsList.addAll(items);
         itemsTable.setItems(itemsList);
     }
@@ -109,7 +110,8 @@ public class ViewItemsController {
             String condition = filterConditionCombo.getValue();
 
             itemsList.clear();
-            itemsList.addAll(itemService.filterItems(categoryId, min, max, condition));
+            int userId = (MainApp.currentUser != null) ? MainApp.currentUser.getUserId() : 0;
+            itemsList.addAll(itemService.filterItems(categoryId, min, max, condition, userId));
         } catch (NumberFormatException e) {
             showStatus("Invalid filter numbers.", false);
         }

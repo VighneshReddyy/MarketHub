@@ -20,6 +20,7 @@ public class ItemDetailController {
     @FXML private Label conditionLabel;
     @FXML private Label statusLabel;
     @FXML private Label descriptionLabel;
+    @FXML private Label sellerLabel;
     @FXML private Button buyButton;
     @FXML private Label actionStatusLabel;
 
@@ -37,6 +38,11 @@ public class ItemDetailController {
         conditionLabel.setText(conditionText);
         statusLabel.setText("Status: " + item.getStatus().toUpperCase());
         descriptionLabel.setText(item.getDescription());
+        if (item.getSellerName() != null) {
+            sellerLabel.setText("Seller: " + item.getSellerName() + " (" + item.getSellerEmail() + ")");
+        } else {
+            sellerLabel.setText("Seller ID: " + item.getSellerId());
+        }
 
         String url = item.getImageUrl();
         if (url != null && !url.isEmpty()) {

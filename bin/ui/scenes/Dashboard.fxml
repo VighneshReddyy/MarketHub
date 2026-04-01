@@ -15,7 +15,6 @@
                     <MenuItem fx:id="userInfoItem" text="User ID: " disable="true"/>
                     <MenuItem fx:id="emailInfoItem" text="Email: " disable="true"/>
                     <SeparatorMenuItem />
-                    <MenuItem text="My Purchases" onAction="#navigateToPurchases"/>
                     <MenuItem text="View Notifications" onAction="#navigateToNotifications"/>
                 </items>
             </MenuButton>

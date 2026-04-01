@@ -42,4 +42,16 @@ public class ItemMediaDAO {
         }
         return mediaList;
     }
+
+    public boolean deleteMediaByItemId(int itemId) {
+        String sql = "DELETE FROM ItemMedia WHERE item_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, itemId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
