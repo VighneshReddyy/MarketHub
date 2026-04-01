@@ -8,9 +8,11 @@ import javafx.scene.image.ImageView;
 import models.Item;
 import models.Order;
 import services.OrderService;
-import ui.MainApp;
-
 import java.io.File;
+import java.util.Optional;
+import javafx.scene.control.TextInputDialog;
+import services.ReportService;
+import ui.MainApp;
 
 public class ItemDetailController {
 
@@ -26,6 +28,7 @@ public class ItemDetailController {
 
     private Item currentItem;
     private final OrderService orderService = new OrderService();
+    private final ReportService reportService = new ReportService();
 
     public void initData(Item item) {
         this.currentItem = item;
@@ -84,5 +87,45 @@ public class ItemDetailController {
         actionStatusLabel.setText(msg);
         actionStatusLabel.setStyle(isSuccess ? "-fx-text-fill: #198754;" : "-fx-text-fill: #dc3545;");
         actionStatusLabel.setVisible(true);
+    }
+
+    @FXML
+    public void handleReportItem() {
+        if (currentItem == null) return;
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Report Item");
+        dialog.setHeaderText("Report Listing: " + currentItem.getTitle());
+        dialog.setContentText("Please provide a reason for reporting this item:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            String reason = result.get();
+            try {
+                boolean success = reportService.reportItem(currentItem.getItemId(), MainApp.currentUser.getUserId(), reason);
+                showStatus(success ? "Item reported successfully." : "Failed to report item.", success);
+            } catch (Exception e) {
+                showStatus(e.getMessage(), false);
+            }
+        }
+    }
+
+    @FXML
+    public void handleReportUser() {
+        if (currentItem == null) return;
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Report Seller");
+        dialog.setHeaderText("Report Seller: " + (currentItem.getSellerName() != null ? currentItem.getSellerName() : "ID " + currentItem.getSellerId()));
+        dialog.setContentText("Please provide a reason for reporting this seller:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            String reason = result.get();
+            try {
+                boolean success = reportService.reportUser(currentItem.getSellerId(), MainApp.currentUser.getUserId(), reason);
+                showStatus(success ? "Seller reported successfully." : "Failed to report seller.", success);
+            } catch (Exception e) {
+                showStatus(e.getMessage(), false);
+            }
+        }
     }
 }

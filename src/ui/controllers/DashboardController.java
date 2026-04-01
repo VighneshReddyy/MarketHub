@@ -44,6 +44,16 @@ public class DashboardController {
     }
 
     @FXML
+    public void navigateToMyRating() {
+        MainApp.switchScene("scenes/MyRating.fxml");
+    }
+
+    @FXML
+    public void navigateToMyPurchases() {
+        MainApp.switchScene("scenes/MyPurchases.fxml");
+    }
+
+    @FXML
     public void navigateToMyListings() {
         MainApp.switchScene("scenes/Transactions.fxml");
     }

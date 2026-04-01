@@ -21,7 +21,6 @@ public class TransactionController {
     @FXML private TableColumn<Order, String> statusCol;
     @FXML private TableColumn<Order, java.sql.Timestamp> dateCol;
     @FXML private TableColumn<Order, HBox> actionCol;
-    @FXML private RadioButton radioPurchases;
     @FXML private RadioButton radioSales;
     @FXML private RadioButton radioActiveListings;
     @FXML private Label statusLabel;
@@ -32,7 +31,6 @@ public class TransactionController {
 
     @FXML
     public void initialize() {
-        radioPurchases.setToggleGroup(toggleGroup);
         radioSales.setToggleGroup(toggleGroup);
         radioActiveListings.setToggleGroup(toggleGroup);
         
@@ -75,9 +73,7 @@ public class TransactionController {
         orderList.clear();
         List<Order> orders;
         
-        if (radioPurchases.isSelected()) {
-            orders = orderService.getBuyerTransactions(MainApp.currentUser.getUserId());
-        } else if (radioSales.isSelected()) {
+        if (radioSales.isSelected()) {
             orders = orderService.getSellerTransactions(MainApp.currentUser.getUserId());
         } else {
             // Re-use Order model for Listing display (mapping Item fields to Order fields for the table)

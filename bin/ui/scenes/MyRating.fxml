@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MyRatingController" alignment="TOP_CENTER" spacing="15">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+    
+    <HBox alignment="CENTER_LEFT">
+        <Button text="&lt; Back to Dashboard" onAction="#navigateBack" style="-fx-background-color: transparent; -fx-text-fill: #0d6efd;" />
+    </HBox>
+
+    <Label text="My Reports/Ratings" styleClass="title-label" />
+    <Label text="This section shows reports and reviews submitted against your account." style="-fx-text-fill: #6c757d;" />
+
+    <fx:define>
+        <ToggleGroup fx:id="viewToggleGroup"/>
+    </fx:define>
+
+    <HBox spacing="10" alignment="CENTER">
+        <RadioButton fx:id="radioReports" text="Reports" toggleGroup="$viewToggleGroup" selected="true" onAction="#handleToggleChange"/>
+        <RadioButton fx:id="radioReviews" text="Reviews &amp; Ratings" toggleGroup="$viewToggleGroup" onAction="#handleToggleChange"/>
+    </HBox>
+
+    <StackPane VBox.vgrow="ALWAYS">
+        <TableView fx:id="reportsTable">
+            <columns>
+                <TableColumn text="Report ID" prefWidth="80">
+                    <cellValueFactory><PropertyValueFactory property="reportId" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Item ID" prefWidth="80">
+                    <cellValueFactory><PropertyValueFactory property="itemId" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Reported By" prefWidth="100">
+                    <cellValueFactory><PropertyValueFactory property="reportedBy" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Reason" prefWidth="300">
+                    <cellValueFactory><PropertyValueFactory property="reason" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Status" prefWidth="100">
+                    <cellValueFactory><PropertyValueFactory property="status" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Date Reported" prefWidth="150">
+                    <cellValueFactory><PropertyValueFactory property="createdAt" /></cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+
+        <TableView fx:id="reviewsTable" visible="false">
+            <columns>
+                <TableColumn text="Review ID" prefWidth="80">
+                    <cellValueFactory><PropertyValueFactory property="reviewId" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Reviewer Name" prefWidth="150">
+                    <cellValueFactory><PropertyValueFactory property="reviewerName" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Item Name" prefWidth="150">
+                    <cellValueFactory><PropertyValueFactory property="itemName" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Rating (1-5)" prefWidth="100">
+                    <cellValueFactory><PropertyValueFactory property="rating" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Comment" prefWidth="350">
+                    <cellValueFactory><PropertyValueFactory property="comment" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Date Reviewed" prefWidth="150">
+                    <cellValueFactory><PropertyValueFactory property="createdAt" /></cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </StackPane>
+</VBox>

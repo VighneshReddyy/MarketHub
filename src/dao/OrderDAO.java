@@ -59,6 +59,20 @@ public class OrderDAO {
         return orders;
     }
 
+    public boolean acceptOrderStoredProcedure(int orderId, int itemId) {
+        String sql = "{CALL AcceptOrder(?, ?)}";
+        try (Connection conn = DBConnection.getConnection();
+             CallableStatement stmt = conn.prepareCall(sql)) {
+            stmt.setInt(1, orderId);
+            stmt.setInt(2, itemId);
+            stmt.execute();
+            return true; // The stored procedure handles the transaction and errors internally
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean updateOrderStatus(int orderId, String status) {
         String sql = "UPDATE Orders SET status = ? WHERE order_id = ?";
         try (Connection conn = DBConnection.getConnection();

@@ -28,4 +28,9 @@
     <Button fx:id="buyButton" text="Buy Now" onAction="#handleBuyAction" style="-fx-background-color: #198754; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10 20;" />
     
     <Label fx:id="actionStatusLabel" visible="false" />
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Report Item" onAction="#handleReportItem" style="-fx-background-color: #ffc107; -fx-text-fill: black;" />
+        <Button text="Report Seller" onAction="#handleReportUser" style="-fx-background-color: #dc3545; -fx-text-fill: white;" />
+    </HBox>
 </VBox>

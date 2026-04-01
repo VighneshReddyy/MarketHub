@@ -16,8 +16,7 @@
     </HBox>
 
     <HBox spacing="10" alignment="CENTER">
-        <RadioButton fx:id="radioPurchases" text="My Purchases" selected="true" onAction="#handleToggleChange"/>
-        <RadioButton fx:id="radioSales" text="My Sales" onAction="#handleToggleChange"/>
+        <RadioButton fx:id="radioSales" text="My Sales" selected="true" onAction="#handleToggleChange"/>
         <RadioButton fx:id="radioActiveListings" text="Active Listings" onAction="#handleToggleChange"/>
     </HBox>
 

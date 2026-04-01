@@ -38,7 +38,12 @@ public class MarketplaceService {
 
     // Item Services
     public int addItem(Item item) {
-        return itemDAO.addItem(item);
+        int itemId = itemDAO.addItem(item);
+        if (itemId > 0) {
+            // Trigger procedural matching
+            itemDAO.matchItemWithRequests(itemId, item.getCategoryId(), item.getPrice(), item.getTitle());
+        }
+        return itemId;
     }
 
     public List<Item> getAllItems(int excludeUserId) {
@@ -80,12 +85,8 @@ public class MarketplaceService {
     }
 
     public boolean acceptOrder(int orderId, int itemId) {
-        // In a real system, use a transaction here
-        boolean orderUpdated = orderDAO.updateOrderStatus(orderId, "completed");
-        if (orderUpdated) {
-            return itemDAO.updateItemStatus(itemId, "sold");
-        }
-        return false;
+        // Now using the Procedural Block: AcceptOrder Stored Procedure
+        return orderDAO.acceptOrderStoredProcedure(orderId, itemId);
     }
 
     public boolean rejectOrder(int orderId) {

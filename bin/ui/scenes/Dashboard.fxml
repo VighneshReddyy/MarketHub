@@ -16,6 +16,8 @@
                     <MenuItem fx:id="emailInfoItem" text="Email: " disable="true"/>
                     <SeparatorMenuItem />
                     <MenuItem text="View Notifications" onAction="#navigateToNotifications"/>
+                    <MenuItem text="My Rating" onAction="#navigateToMyRating"/>
+                    <MenuItem text="My Purchases" onAction="#navigateToMyPurchases"/>
                 </items>
             </MenuButton>
             <Button text="Logout" onAction="#handleLogout" style="-fx-background-color: #dc3545;"/>

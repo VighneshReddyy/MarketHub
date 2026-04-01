@@ -71,6 +71,20 @@ public class ItemDAO {
         return -1;
     }
 
+    public void matchItemWithRequests(int itemId, int categoryId, java.math.BigDecimal price, String title) {
+        String sql = "{CALL MatchItemWithRequests(?, ?, ?, ?)}";
+        try (Connection conn = DBConnection.getConnection();
+             CallableStatement stmt = conn.prepareCall(sql)) {
+            stmt.setInt(1, itemId);
+            stmt.setInt(2, categoryId);
+            stmt.setBigDecimal(3, price);
+            stmt.setString(4, title);
+            stmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean updateItem(Item item) {
         String sql = "UPDATE Items SET category_id = ?, title = ?, description = ?, price = ?, condition_type = ?, status = ?, usage_months = ? WHERE item_id = ?";
         try (Connection conn = DBConnection.getConnection();
