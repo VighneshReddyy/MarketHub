@@ -1,3 +1,5 @@
-uploads/
+uploads/*.jpg
+uploads/*.jpeg
+uploads/*.png
 misc/
 src/db/DBConnection.java

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.TransactionController" spacing="15">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <Button text="&lt; Back to Dashboard" onAction="#navigateBack" style="-fx-background-color: transparent; -fx-text-fill: #0d6efd;" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Label text="Transactions" styleClass="title-label" />
+        <Region HBox.hgrow="ALWAYS" />
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <RadioButton fx:id="radioSales" text="My Sales" selected="true" onAction="#handleToggleChange"/>
+        <RadioButton fx:id="radioActiveListings" text="Active Listings" onAction="#handleToggleChange"/>
+    </HBox>
+
+    <TableView fx:id="transactionTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="itemCol" text="Item ID" prefWidth="70">
+                <cellValueFactory><PropertyValueFactory property="itemId" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="itemNameCol" text="Item Name" prefWidth="150">
+                <cellValueFactory><PropertyValueFactory property="itemName" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="priceCol" text="Price (₹)" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="price" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="statusCol" text="Status" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="status" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="dateCol" text="Listing Date" prefWidth="150">
+                <cellValueFactory><PropertyValueFactory property="listingDate" /></cellValueFactory>
+            </TableColumn>
+            <!-- Dynamic column for Actions mapping to sales -->
+            <TableColumn fx:id="actionCol" text="Action (Sales Only)" prefWidth="150" />
+        </columns>
+    </TableView>
+
+    <Label fx:id="statusLabel" visible="false" />
+
+</VBox>

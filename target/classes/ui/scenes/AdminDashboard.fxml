@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.AdminDashboardController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #212529; -fx-border-color: #000000; -fx-border-width: 0 0 1 0;">
+            <padding><Insets top="15" right="20" bottom="15" left="20"/></padding>
+            <Label text="ADMIN PANEL" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;"/>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="adminNameLabel" style="-fx-text-fill: #adb5bd;"/>
+            <Button text="Logout" onAction="#handleLogout" style="-fx-background-color: #dc3545; -fx-text-fill: white;"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox spacing="10" prefWidth="200" style="-fx-background-color: #343a40;">
+            <padding><Insets top="20" right="10" bottom="20" left="10"/></padding>
+            <Button text="Dashboard" onAction="#showDashboard" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: center-left;"/>
+            <Button text="User Management" onAction="#showUserManagement" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: center-left;"/>
+            <Button text="Item Management" onAction="#showItemManagement" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: center-left;"/>
+            <Button text="Category Management" onAction="#showCategoryManagement" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: center-left;"/>
+            <Button text="Reports Management" onAction="#showReportManagement" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: center-left;"/>
+            <Button text="Review Moderation" onAction="#showReviewModeration" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: center-left;"/>
+            <Button text="Admin Logs" onAction="#showAdminLogs" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: center-left;"/>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contentArea">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <!-- Content will be swapped here -->
+            <VBox fx:id="dashboardView" spacing="30">
+                <Label text="System Overview" styleClass="title-label"/>
+                <TilePane hgap="20" vgap="20" prefColumns="2">
+                    <VBox alignment="CENTER" spacing="10" prefWidth="250" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="Total Users" style="-fx-text-fill: #6c757d;"/>
+                        <Label fx:id="totalUsersLabel" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="10" prefWidth="250" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="Total Items" style="-fx-text-fill: #6c757d;"/>
+                        <Label fx:id="totalItemsLabel" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="10" prefWidth="250" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="Pending Reports" style="-fx-text-fill: #6c757d;"/>
+                        <Label fx:id="pendingReportsLabel" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #dc3545;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="10" prefWidth="250" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                        <Label text="Total Orders" style="-fx-text-fill: #6c757d;"/>
+                        <Label fx:id="totalOrdersLabel" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold;"/>
+                    </VBox>
+                </TilePane>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

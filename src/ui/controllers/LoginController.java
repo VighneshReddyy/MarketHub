@@ -29,7 +29,11 @@ public class LoginController {
         User user = userService.login(email, password);
         if (user != null) {
             MainApp.currentUser = user;
-            MainApp.switchScene("scenes/Dashboard.fxml");
+            if (user.isAdmin()) {
+                MainApp.switchScene("scenes/AdminDashboard.fxml");
+            } else {
+                MainApp.switchScene("scenes/Dashboard.fxml");
+            }
         } else {
             showError("Invalid email or password.");
         }

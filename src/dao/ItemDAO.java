@@ -202,6 +202,33 @@ public class ItemDAO {
         }
         return items;
     }
+
+    public List<Item> searchAndFilterAdminItems(String title, Integer categoryId, String status) {
+        StringBuilder sql = new StringBuilder("SELECT i.*, u.name AS seller_name, u.email AS seller_email, MAX(m.file_path) AS file_path FROM Items i JOIN Users u ON i.seller_id = u.user_id LEFT JOIN ItemMedia m ON i.item_id = m.item_id AND m.media_type = 'image' WHERE 1=1");
+        if (title != null && !title.isEmpty()) sql.append(" AND i.title LIKE ?");
+        if (categoryId != null && categoryId > 0) sql.append(" AND i.category_id = ?");
+        if (status != null && !status.isEmpty()) sql.append(" AND i.status = ?");
+        sql.append(" GROUP BY i.item_id, u.name, u.email");
+
+        List<Item> items = new ArrayList<>();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            
+            int paramIndex = 1;
+            if (title != null && !title.isEmpty()) stmt.setString(paramIndex++, "%" + title + "%");
+            if (categoryId != null && categoryId > 0) stmt.setInt(paramIndex++, categoryId);
+            if (status != null && !status.isEmpty()) stmt.setString(paramIndex++, status);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                 while (rs.next()) {
+                    items.add(mapResultSetToItem(rs));
+                 }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
     
     private List<Item> getItemsQueryWithIntParam(String sql, int param) {
         List<Item> items = new ArrayList<>();

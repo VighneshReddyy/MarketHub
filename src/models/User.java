@@ -9,15 +9,17 @@ public class User {
     private String password;
     private String phone;
     private boolean isAdmin;
+    private String status; // 'active', 'banned'
     private Timestamp createdAt;
 
-    public User(int userId, String name, String email, String password, String phone, boolean isAdmin, Timestamp createdAt) {
+    public User(int userId, String name, String email, String password, String phone, boolean isAdmin, String status, Timestamp createdAt) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.password = password;
         this.phone = phone;
         this.isAdmin = isAdmin;
+        this.status = status;
         this.createdAt = createdAt;
     }
 
@@ -27,6 +29,7 @@ public class User {
         this.password = password;
         this.phone = phone;
         this.isAdmin = false;
+        this.status = "active";
     }
 
     // Getters and Setters
@@ -42,6 +45,8 @@ public class User {
     public void setPhone(String phone) { this.phone = phone; }
     public boolean isAdmin() { return isAdmin; }
     public void setAdmin(boolean admin) { isAdmin = admin; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
 

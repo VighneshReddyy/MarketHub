@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.EditItemController" alignment="TOP_CENTER" spacing="15">
+    <padding><Insets top="20" right="40" bottom="20" left="40"/></padding>
+    
+    <HBox alignment="CENTER_LEFT">
+        <Button text="&lt; Back" onAction="#navigateBack" style="-fx-background-color: transparent; -fx-text-fill: #0d6efd;" />
+    </HBox>
+
+    <Label text="Edit Listing" styleClass="title-label" />
+
+    <StackPane prefHeight="150" prefWidth="150" style="-fx-border-color: #dee2e6; -fx-border-radius: 5; -fx-background-color: #f8f9fa;">
+        <javafx.scene.image.ImageView fx:id="itemImageView" fitHeight="140" fitWidth="140" preserveRatio="true" />
+    </StackPane>
+
+    <GridPane hgap="10" vgap="15" alignment="CENTER">
+        <Label text="Title:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="titleField" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="250"/>
+
+        <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextArea fx:id="descriptionField" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="250" prefHeight="80"/>
+
+        <Label text="Price (₹):" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <Label text="Category:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <ComboBox fx:id="categoryCombo" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="250" promptText="Select Category"/>
+
+        <Label text="Condition:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <ComboBox fx:id="conditionCombo" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="250">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="new" />
+                    <String fx:value="used" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Label fx:id="usageMonthsLabel" text="Usage (months):" GridPane.columnIndex="0" GridPane.rowIndex="5" visible="false"/>
+        <TextField fx:id="usageMonthsField" GridPane.columnIndex="1" GridPane.rowIndex="5" visible="false"/>
+
+        <Label text="Image:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="6" spacing="10" alignment="CENTER_LEFT">
+             <Button text="Change Image" onAction="#handleImageUpload" style="-fx-background-color: #6c757d;"/>
+             <Label fx:id="imagePathLabel" text="Retain existing image." textFill="#6c757d"/>
+        </HBox>
+    </GridPane>
+
+    <Label fx:id="statusLabel" visible="false" />
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="Update Item" onAction="#handleUpdate" prefWidth="150" style="-fx-font-size: 16px; -fx-background-color: #198754; -fx-text-fill: white;"/>
+        <Button text="Delete Item" onAction="#handleDelete" prefWidth="150" style="-fx-font-size: 16px; -fx-background-color: #dc3545; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>
