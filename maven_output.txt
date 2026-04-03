@@ -1,0 +1,331 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.marketplace:marketplace-system >-----------------
+[INFO] Building marketplace-system 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> javafx:0.0.8:run (default-cli) > process-classes @ marketplace-system >>>
+[WARNING] 6 problems were encountered while building the effective model for org.openjfx:javafx-controls:jar:21.0.1 during dependency collection step for project (use -X to see details)
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ marketplace-system ---
+[INFO] Copying 13 resources from src to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ marketplace-system ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 46 source files with javac [debug target 21] to target\classes
+[INFO] /C:/Projects/MarketPlace/src/ui/controllers/AdminDashboardController.java: C:\Projects\MarketPlace\src\ui\controllers\AdminDashboardController.java uses unchecked or unsafe operations.
+[INFO] /C:/Projects/MarketPlace/src/ui/controllers/AdminDashboardController.java: Recompile with -Xlint:unchecked for details.
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] location of system modules is not set in conjunction with -source 21
+  not setting the location of system modules may lead to class files that cannot run on JDK 21
+    --release 21 is recommended instead of -source 21 -target 21 because it sets the location of system modules automatically
+[INFO] 1 warning
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Projects/MarketPlace/src/dao/CategoryDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/OrderDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemMediaDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReviewDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReportDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/NotificationDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminLogDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/AlertDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/CategoryDAO.java:[13,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.CategoryDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/CategoryDAO.java:[35,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.CategoryDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/CategoryDAO.java:[52,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.CategoryDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/CategoryDAO.java:[66,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.CategoryDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/OrderDAO.java:[13,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.OrderDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/OrderDAO.java:[37,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.OrderDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/OrderDAO.java:[64,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.OrderDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/OrderDAO.java:[78,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.OrderDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/OrderDAO.java:[91,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.OrderDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[48,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[76,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[90,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[113,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[125,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[167,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[194,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[214,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[235,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemMediaDAO.java:[12,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ItemMediaDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemMediaDAO.java:[27,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ItemMediaDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemMediaDAO.java:[48,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ItemMediaDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReviewDAO.java:[22,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ReviewDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReviewDAO.java:[50,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ReviewDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReviewDAO.java:[77,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ReviewDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[14,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.UserDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[29,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.UserDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[55,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.UserDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[81,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.UserDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[96,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.UserDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[114,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.UserDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReportDAO.java:[17,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ReportDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReportDAO.java:[45,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ReportDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReportDAO.java:[67,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.ReportDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/NotificationDAO.java:[14,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.NotificationDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/NotificationDAO.java:[37,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.NotificationDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminDAO.java:[26,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.AdminDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminDAO.java:[52,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.AdminDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminDAO.java:[77,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.AdminDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminDAO.java:[104,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.AdminDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminDAO.java:[132,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.AdminDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminLogDAO.java:[13,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.AdminLogDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminLogDAO.java:[33,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.AdminLogDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AlertDAO.java:[13,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.AlertDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AlertDAO.java:[30,32] cannot find symbol
+  symbol:   variable DBConnection
+  location: class dao.AlertDAO
+[INFO] 55 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.951 s
+[INFO] Finished at: 2026-04-02T14:20:37+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project marketplace-system: Compilation failure: Compilation failure: 
+[ERROR] /C:/Projects/MarketPlace/src/dao/CategoryDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/OrderDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemMediaDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReviewDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReportDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/NotificationDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminLogDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/AlertDAO.java:[3,10] package db does not exist
+[ERROR] /C:/Projects/MarketPlace/src/dao/CategoryDAO.java:[13,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.CategoryDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/CategoryDAO.java:[35,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.CategoryDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/CategoryDAO.java:[52,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.CategoryDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/CategoryDAO.java:[66,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.CategoryDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/OrderDAO.java:[13,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.OrderDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/OrderDAO.java:[37,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.OrderDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/OrderDAO.java:[64,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.OrderDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/OrderDAO.java:[78,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.OrderDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/OrderDAO.java:[91,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.OrderDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[48,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[76,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[90,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[113,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[125,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[167,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[194,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[214,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemDAO.java:[235,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ItemDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemMediaDAO.java:[12,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ItemMediaDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemMediaDAO.java:[27,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ItemMediaDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ItemMediaDAO.java:[48,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ItemMediaDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReviewDAO.java:[22,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ReviewDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReviewDAO.java:[50,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ReviewDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReviewDAO.java:[77,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ReviewDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[14,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.UserDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[29,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.UserDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[55,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.UserDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[81,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.UserDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[96,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.UserDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/UserDAO.java:[114,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.UserDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReportDAO.java:[17,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ReportDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReportDAO.java:[45,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ReportDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/ReportDAO.java:[67,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.ReportDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/NotificationDAO.java:[14,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.NotificationDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/NotificationDAO.java:[37,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.NotificationDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminDAO.java:[26,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.AdminDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminDAO.java:[52,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.AdminDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminDAO.java:[77,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.AdminDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminDAO.java:[104,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.AdminDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminDAO.java:[132,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.AdminDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminLogDAO.java:[13,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.AdminLogDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AdminLogDAO.java:[33,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.AdminLogDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AlertDAO.java:[13,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.AlertDAO
+[ERROR] /C:/Projects/MarketPlace/src/dao/AlertDAO.java:[30,32] cannot find symbol
+[ERROR]   symbol:   variable DBConnection
+[ERROR]   location: class dao.AlertDAO
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

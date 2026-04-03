@@ -13,7 +13,9 @@ CREATE TABLE Users (
 
 CREATE TABLE Categories (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100)
+    name VARCHAR(100),
+    parent_id INT,
+    FOREIGN KEY (parent_id) REFERENCES Categories(category_id)
 );
 
 CREATE TABLE Items (
