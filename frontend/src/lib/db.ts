@@ -10,7 +10,9 @@ export const dbParams = {
   password: process.env.DB_PASSWORD || "root123",
   database: process.env.DB_NAME || "marketplace",
   port: parseInt(process.env.DB_PORT || "3306"),
-  ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: true } : undefined,
+  ssl: process.env.DB_SSL === "true"
+    ? { minVersion: "TLSv1.2", rejectUnauthorized: true }
+    : undefined,
 };
 
 export const getDbConnection = () => {
