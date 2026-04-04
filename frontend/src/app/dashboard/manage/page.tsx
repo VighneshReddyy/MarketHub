@@ -20,7 +20,7 @@ export default async function ManagePage() {
   
   // Fetch user's active/removed listings
   const [listings] = await db.query(
-    `SELECT i.*, c.name as category_name
+    `SELECT i.item_id, i.title, i.price, i.description, i.image_url, i.usage_months, i.status, i.condition_type, c.name as category_name
      FROM Items i 
      LEFT JOIN Categories c ON i.category_id = c.category_id
      WHERE i.seller_id = ? AND i.status != 'sold'
@@ -80,7 +80,7 @@ export default async function ManagePage() {
                     <div className="pl-4 md:pl-0 flex items-center justify-between md:flex-col md:items-end gap-2 shrink-0">
                        <span className="text-xl text-white font-bold">₹{parseFloat(item.price).toLocaleString()}</span>
                        {item.status === 'available' && (
-                         <ManageActions itemId={item.item_id} />
+                         <ManageActions item={item} />
                        )}
                     </div>
                  </div>

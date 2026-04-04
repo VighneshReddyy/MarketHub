@@ -57,6 +57,7 @@ export async function createListing(formData: FormData) {
     const category_id = formData.get("category_id");
     const condition = formData.get("condition");
     const image_url = formData.get("image_url") || null;
+    const usage_months = formData.get("usage_months") || null;
     
     if (!title || !price || !category_id || !condition) {
        return { error: "Missing required fields" };
@@ -64,8 +65,8 @@ export async function createListing(formData: FormData) {
 
     const db = getDbConnection();
     await db.query(
-      "INSERT INTO Items (seller_id, category_id, title, description, price, condition_type, status, image_url) VALUES (?, ?, ?, ?, ?, ?, 'available', ?)",
-      [user.user_id, category_id, title, description, price, condition, image_url]
+      "INSERT INTO Items (seller_id, category_id, title, description, price, condition_type, status, image_url, usage_months) VALUES (?, ?, ?, ?, ?, ?, 'available', ?, ?)",
+      [user.user_id, category_id, title, description, price, condition, image_url, usage_months]
     );
 
     revalidatePath("/dashboard/buy");
@@ -125,5 +126,57 @@ export async function createAlert(formData: FormData) {
   } catch (error: any) {
     console.error("Alert error:", error);
     return { error: "Failed to create alert" };
+  }
+}
+
+export async function reportItem(itemId: number, reason: string) {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("auth_token")?.value;
+    if (!token) return { error: "Not authenticated" };
+
+    const db = getDbConnection();
+    await db.query(
+      "INSERT INTO Reports (item_id, reason, status) VALUES (?, ?, 'pending')",
+      [itemId, reason]
+    );
+
+    return { success: true };
+  } catch (error: any) {
+    console.error("Report error:", error);
+    return { error: "Failed to submit report" };
+  }
+}
+
+export async function updateListing(itemId: number, data: { price?: string; description?: string; image_url?: string }) {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("auth_token")?.value;
+    if (!token) return { error: "Not authenticated" };
+
+    const user = JSON.parse(Buffer.from(token, "base64").toString("utf-8"));
+    const db = getDbConnection();
+
+    const fields: string[] = [];
+    const values: any[] = [];
+
+    if (data.price) { fields.push("price = ?"); values.push(data.price); }
+    if (data.description !== undefined) { fields.push("description = ?"); values.push(data.description); }
+    if (data.image_url !== undefined) { fields.push("image_url = ?"); values.push(data.image_url || null); }
+
+    if (fields.length === 0) return { error: "Nothing to update" };
+
+    values.push(itemId, user.user_id);
+    await db.query(
+      `UPDATE Items SET ${fields.join(", ")} WHERE item_id = ? AND seller_id = ?`,
+      values
+    );
+
+    revalidatePath("/dashboard/manage");
+    revalidatePath("/dashboard/buy");
+    return { success: true };
+  } catch (error: any) {
+    console.error("Update error:", error);
+    return { error: "Failed to update listing" };
   }
 }

@@ -14,6 +14,7 @@ interface ProductRevealCardProps {
   description?: string
   rating?: number
   reviewCount?: number
+  sellerName?: string
   onAdd?: () => void
   onFavorite?: () => void
   enableAnimations?: boolean
@@ -25,10 +26,11 @@ export function ProductRevealCard({
   name = "Premium Wireless Headphones",
   price = "$199",
   originalPrice,
-  image = "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=800&h=600&fit=crop", // Premium headphones
-  description = "Experience studio-quality sound with advanced noise cancellation and 30-hour battery life. Perfect for music lovers and professionals.",
+  image = "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=800&h=600&fit=crop",
+  description = "Experience studio-quality sound with advanced noise cancellation and 30-hour battery life.",
   rating = 4.8,
   reviewCount = 124,
+  sellerName,
   onAdd,
   onFavorite,
   enableAnimations = true,
@@ -227,6 +229,9 @@ export function ProductRevealCard({
           >
             {name}
           </motion.h3>
+          {sellerName && (
+            <p className="text-xs text-slate-500">by {sellerName}</p>
+          )}
           
           <div className="flex items-center gap-2 mt-2">
             <span className="text-2xl font-bold text-emerald-400">{price}</span>
