@@ -85,9 +85,9 @@ export function ProductRevealCardWrapper({ item }: { item: any }) {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Image */}
-            <div className="relative h-52 overflow-hidden">
-              <img src={imageUrl} alt={item.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0f1120] via-transparent to-transparent" />
+            <div className="relative h-52 overflow-hidden bg-[#0a0a0a]">
+              <img src={imageUrl} alt={item.title} className="w-full h-full object-contain p-2" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0f1120] via-transparent to-transparent pointer-events-none" />
               <button
                 onClick={() => setShowModal(false)}
                 className="absolute top-4 right-4 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors border border-white/10"

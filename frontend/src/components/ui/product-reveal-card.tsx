@@ -49,18 +49,18 @@ export function ProductRevealCard({
   }
 
   const containerVariants: any = {
-    rest: { 
+    rest: {
       scale: 1,
       y: 0,
       filter: "blur(0px)",
     },
-    hover: shouldAnimate ? { 
-      scale: 1.03, 
+    hover: shouldAnimate ? {
+      scale: 1.03,
       y: -8,
       filter: "blur(0px)",
-      transition: { 
-        type: "spring", 
-        stiffness: 300, 
+      transition: {
+        type: "spring",
+        stiffness: 300,
         damping: 30,
         mass: 0.8,
       }
@@ -73,13 +73,13 @@ export function ProductRevealCard({
   }
 
   const overlayVariants: any = {
-    rest: { 
-      y: "100%", 
+    rest: {
+      y: "100%",
       opacity: 0,
       filter: "blur(4px)",
     },
-    hover: { 
-      y: "0%", 
+    hover: {
+      y: "0%",
       opacity: 1,
       filter: "blur(0px)",
       transition: {
@@ -94,13 +94,13 @@ export function ProductRevealCard({
   }
 
   const contentVariants: any = {
-    rest: { 
-      opacity: 0, 
+    rest: {
+      opacity: 0,
       y: 20,
       scale: 0.95,
     },
-    hover: { 
-      opacity: 1, 
+    hover: {
+      opacity: 1,
       y: 0,
       scale: 1,
       transition: {
@@ -114,13 +114,13 @@ export function ProductRevealCard({
 
   const buttonVariants_motion: any = {
     rest: { scale: 1, y: 0 },
-    hover: shouldAnimate ? { 
-      scale: 1.05, 
+    hover: shouldAnimate ? {
+      scale: 1.05,
       y: -2,
-      transition: { 
-        type: "spring", 
-        stiffness: 400, 
-        damping: 25 
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 25
       }
     } : {},
     tap: shouldAnimate ? { scale: 0.95 } : {},
@@ -128,10 +128,10 @@ export function ProductRevealCard({
 
   const favoriteVariants: any = {
     rest: { scale: 1, rotate: 0 },
-    favorite: { 
-      scale: [1, 1.3, 1], 
+    favorite: {
+      scale: [1, 1.3, 1],
       rotate: [0, 10, -10, 0],
-      transition: { 
+      transition: {
         duration: 0.5,
         ease: "easeInOut"
       }
@@ -151,21 +151,20 @@ export function ProductRevealCard({
       )}
     >
       {/* Image Container */}
-      <div className="relative overflow-hidden w-full bg-black/50">
+      <div className="relative overflow-hidden w-full bg-[#0a0a0a]" style={{ height: '224px' }}>
         <motion.img
           src={image}
           alt={name}
-          className="h-56 w-full object-cover opacity-80 mix-blend-overlay"
+          className="w-full h-full object-contain p-2"
           variants={imageVariants}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          onError={(e) => {
+            e.currentTarget.src = "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&h=600&fit=crop";
+            e.currentTarget.className = "w-full h-full object-cover";
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#121212]/80 via-transparent to-transparent flex items-center justify-center">
-            {/* Visual fallback for categories where images aren't present */}
-            <span className="text-white/20 select-none text-7xl font-bold italic absolute pointer-events-none transform -rotate-12 translate-x-4 opacity-50">
-                {name?.substring(0, 4).toUpperCase()}
-            </span>
-        </div>
-        
+        <div className="absolute inset-0 bg-gradient-to-t from-[#121212]/60 via-transparent to-transparent pointer-events-none" />
+
         {/* Favorite Button */}
         <motion.button
           onClick={handleFavorite}
@@ -173,8 +172,8 @@ export function ProductRevealCard({
           animate={isFavorite ? "favorite" : "rest"}
           className={cn(
             "absolute top-4 right-4 p-2 rounded-full backdrop-blur-sm border border-white/20 z-20",
-            isFavorite 
-              ? "bg-red-500 text-white" 
+            isFavorite
+              ? "bg-red-500 text-white"
               : "bg-black/40 text-white hover:bg-black/60"
           )}
         >
@@ -189,8 +188,8 @@ export function ProductRevealCard({
           className={cn(
             "absolute top-4 left-4 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-md z-20 border",
             condition === "new" ? "bg-green-500/80 border-green-400" :
-            condition === "used" ? "bg-red-500/80 border-red-400" :
-            "bg-blue-500/80 border-blue-400"
+              condition === "used" ? "bg-red-500/80 border-red-400" :
+                "bg-blue-500/80 border-blue-400"
           )}
         >
           {condition === "any" ? "REFURBISHED" : condition}
@@ -207,8 +206,8 @@ export function ProductRevealCard({
                 key={i}
                 className={cn(
                   "w-4 h-4",
-                  i < Math.floor(rating) 
-                    ? "text-yellow-400 fill-current" 
+                  i < Math.floor(rating)
+                    ? "text-yellow-400 fill-current"
                     : "text-muted-foreground opacity-30"
                 )}
               />
@@ -221,7 +220,7 @@ export function ProductRevealCard({
 
         {/* Product Info */}
         <div className="space-y-1">
-          <motion.h3 
+          <motion.h3
             className="text-xl font-bold leading-tight tracking-tight text-white line-clamp-1"
             initial={{ opacity: 0.9 }}
             whileHover={{ opacity: 1 }}
@@ -232,7 +231,7 @@ export function ProductRevealCard({
           {sellerName && (
             <p className="text-xs text-slate-500">by {sellerName}</p>
           )}
-          
+
           <div className="flex items-center gap-2 mt-2">
             <span className="text-2xl font-bold text-emerald-400">{price}</span>
             {originalPrice && (
@@ -285,7 +284,7 @@ export function ProductRevealCard({
                 <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); onAdd(); }}>
                   {/* The click handler is intercepted to process purchase before routing */}
                   <div className={cn(
-                    buttonVariants({ variant: "default" }), 
+                    buttonVariants({ variant: "default" }),
                     "w-full h-12 font-medium cursor-pointer relative overflow-hidden",
                     "bg-gradient-to-r from-emerald-500 to-teal-500",
                     "hover:from-emerald-400 hover:to-teal-400",
