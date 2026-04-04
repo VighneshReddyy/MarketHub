@@ -22,7 +22,8 @@ export function SellForm({ categories }: { categories: any[] }) {
     show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
   };
 
-  const handleAction = async () => {
+  const handleAction = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (!formRef.current) return;
     setIsLoading(true);
     const formData = new FormData(formRef.current);
@@ -42,7 +43,7 @@ export function SellForm({ categories }: { categories: any[] }) {
   return (
     <motion.form
       ref={formRef}
-      action={handleAction}
+      onSubmit={handleAction}
       className="space-y-10"
       variants={containerVariants}
       initial="hidden"
