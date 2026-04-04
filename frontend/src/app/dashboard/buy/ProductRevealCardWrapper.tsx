@@ -35,7 +35,8 @@ export function ProductRevealCardWrapper({ item }: { item: any }) {
     "Default": "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&h=600&fit=crop"
   };
 
-  const imageUrl = categoryImages[item.category_name] || categoryImages["Default"];
+  // Use the seller's uploaded image if available, otherwise fall back to category placeholder
+  const imageUrl = item.image_url || categoryImages[item.category_name] || categoryImages["Default"];
 
   return (
     <div className={isLoading ? "opacity-50 pointer-events-none" : ""}>

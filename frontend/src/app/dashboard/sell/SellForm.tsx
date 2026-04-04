@@ -118,6 +118,21 @@ export function SellForm({ categories }: { categories: any[] }) {
         <div className="absolute bottom-0 left-0 h-[2px] w-full bg-green-400 scale-x-0 origin-left transition-transform duration-500 peer-focus:scale-x-100" />
       </motion.div>
 
+      <motion.div variants={itemVariants} className="relative pt-6 group">
+        <input 
+          type="url" 
+          name="image_url" 
+          id="image_url" 
+          placeholder=" "
+          className="peer w-full bg-transparent border-b border-green-500/20 text-green-400 font-jetbrains text-sm focus:outline-none placeholder-transparent py-2"
+        />
+        <label htmlFor="image_url" className="absolute left-0 top-8 text-slate-500 font-syne text-xl transition-all duration-300 peer-focus:-translate-y-8 peer-focus:text-xs peer-focus:text-green-500 peer-focus:tracking-widest uppercase peer-[:not(:placeholder-shown)]:-translate-y-8 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-green-500 peer-[:not(:placeholder-shown)]:tracking-widest">
+          Image URL (optional)
+        </label>
+        <div className="absolute bottom-0 left-0 h-[2px] w-full bg-green-400 scale-x-0 origin-left transition-transform duration-500 peer-focus:scale-x-100" />
+        <p className="text-slate-600 text-xs mt-2">Paste a direct link to an image (e.g. from imgur.com)</p>
+      </motion.div>
+
       <motion.div variants={itemVariants} className="pt-6">
         <button 
           type="submit" 

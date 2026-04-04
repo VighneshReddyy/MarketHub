@@ -56,6 +56,7 @@ export async function createListing(formData: FormData) {
     const price = formData.get("price");
     const category_id = formData.get("category_id");
     const condition = formData.get("condition");
+    const image_url = formData.get("image_url") || null;
     
     if (!title || !price || !category_id || !condition) {
        return { error: "Missing required fields" };
@@ -63,8 +64,8 @@ export async function createListing(formData: FormData) {
 
     const db = getDbConnection();
     await db.query(
-      "INSERT INTO Items (seller_id, category_id, title, description, price, condition_type, status) VALUES (?, ?, ?, ?, ?, ?, 'available')",
-      [user.user_id, category_id, title, description, price, condition]
+      "INSERT INTO Items (seller_id, category_id, title, description, price, condition_type, status, image_url) VALUES (?, ?, ?, ?, ?, ?, 'available', ?)",
+      [user.user_id, category_id, title, description, price, condition, image_url]
     );
 
     revalidatePath("/dashboard/buy");

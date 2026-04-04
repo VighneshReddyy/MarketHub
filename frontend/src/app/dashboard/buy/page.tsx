@@ -24,6 +24,7 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
   let sql = `
      SELECT 
        i.*, 
+       i.image_url,
        u.name as seller_name, 
        c.name as category_name,
        COALESCE(AVG(r.rating), 0) as seller_rating,
