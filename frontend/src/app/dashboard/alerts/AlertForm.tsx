@@ -23,7 +23,7 @@ export function AlertForm({ categories }: { categories: any[] }) {
       setStatus({ text: result.error, type: "error" });
       setIsLoading(false);
     } else {
-      setStatus({ text: "TRANSMISSION LOCKED.", type: "success" });
+      setStatus({ text: "Alert saved successfully.", type: "success" });
       setTimeout(() => {
         setStatus(null);
         setIsLoading(false);
@@ -42,13 +42,13 @@ export function AlertForm({ categories }: { categories: any[] }) {
       )}
 
       <div className="flex flex-col gap-2">
-        <label className="text-xs font-jetbrains uppercase tracking-widest text-pink-400/80">Target Sector</label>
+        <label className="text-xs font-medium uppercase tracking-widest text-pink-400/80">Category</label>
         <select 
           name="category_id" 
           required 
           className="w-full bg-black/50 border-b border-pink-500/30 px-0 py-2 text-white font-jetbrains focus:outline-none focus:border-pink-500 transition-colors appearance-none"
         >
-          <option value="" className="bg-[#0f0f13]">AWAITING OVERRIDE...</option>
+          <option value="" className="bg-[#0f0f13]">Select a category</option>
           {categories.map(c => (
             <option key={c.category_id} value={c.category_id} className="bg-[#0f0f13] text-pink-300">
               {c.name}
@@ -59,38 +59,38 @@ export function AlertForm({ categories }: { categories: any[] }) {
 
       <div className="grid grid-cols-2 gap-8">
         <div className="flex flex-col gap-2">
-          <label className="text-xs font-jetbrains uppercase tracking-widest text-pink-400/80">Base Capital</label>
+          <label className="text-xs font-medium uppercase tracking-widest text-pink-400/80">Min Price (₹)</label>
           <input 
             name="min_price" 
             type="number" 
             min="0"
-            placeholder="[ 0 ]" 
+            placeholder="0" 
             className="w-full bg-transparent border-b border-pink-500/30 px-0 py-2 text-white font-jetbrains focus:outline-none focus:border-pink-500 transition-colors"
           />
         </div>
         
         <div className="flex flex-col gap-2">
-          <label className="text-xs font-jetbrains uppercase tracking-widest text-pink-400/80">Max Threshold</label>
+          <label className="text-xs font-medium uppercase tracking-widest text-pink-400/80">Max Price (₹)</label>
           <input 
             name="max_price" 
             type="number" 
             min="1"
-            placeholder="[ UNLOCK ]" 
+            placeholder="No limit" 
             className="w-full bg-transparent border-b border-pink-500/30 px-0 py-2 text-white font-jetbrains focus:outline-none focus:border-pink-500 transition-colors"
           />
         </div>
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="text-xs font-jetbrains uppercase tracking-widest text-pink-400/80">State Restriction</label>
+        <label className="text-xs font-medium uppercase tracking-widest text-pink-400/80">Condition</label>
         <select 
           name="condition" 
           required 
           className="w-full bg-black/50 border-b border-pink-500/30 px-0 py-2 text-white font-jetbrains focus:outline-none focus:border-pink-500 transition-colors appearance-none"
         >
-          <option value="any" className="bg-[#0f0f13]">BYPASS (ANY)</option>
-          <option value="new" className="bg-[#0f0f13] text-cyan-400">PRISTINE (NEW)</option>
-          <option value="used" className="bg-[#0f0f13] text-amber-400">USED / RECOVERED</option>
+          <option value="any" className="bg-[#0f0f13]">Any condition</option>
+          <option value="new" className="bg-[#0f0f13] text-cyan-400">New only</option>
+          <option value="used" className="bg-[#0f0f13] text-amber-400">Used only</option>
         </select>
       </div>
 
@@ -102,7 +102,7 @@ export function AlertForm({ categories }: { categories: any[] }) {
         <div className="absolute inset-0 mix-blend-overlay opacity-0 group-active:opacity-100 transition-opacity bg-white scale-0 group-active:scale-x-100 duration-300 origin-center" />
         <span className="relative z-10 flex items-center justify-center gap-3">
           {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
-          {isLoading ? "UPLOADING..." : "[ ACTIVATE ALERT ]"}
+          {isLoading ? "Saving..." : "Set Alert"}
         </span>
       </button>
     </form>

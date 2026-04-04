@@ -31,17 +31,22 @@ export default async function NotificationsPage() {
         <rect width="100%" height="100%" filter="url(#noise)" />
       </svg>
       
-      <TopNav userName={user.name} />
+      <TopNav userName={user.name} backLink="/dashboard" />
 
       <main className="flex-1 w-full max-w-4xl mx-auto p-6 md:p-12 relative z-10">
-        <h1 className="font-serif italic text-5xl md:text-6xl text-white mb-10">
-          Transmission Feed
-        </h1>
+        <div className="flex items-center justify-between mb-10">
+          <h1 className="font-serif italic text-4xl md:text-5xl text-white">
+            Notifications
+          </h1>
+          {notifications.length > 0 && (
+            <span className="text-sm text-slate-400">{notifications.filter((n: any) => !n.is_read).length} unread</span>
+          )}
+        </div>
 
         {notifications.length === 0 ? (
           <div className="flex flex-col items-center justify-center p-20 border border-white/5 bg-black/40 backdrop-blur-xl rounded-2xl shadow-[inset_0_0_20px_rgba(255,255,255,0.02)]">
             <Bell className="w-12 h-12 text-slate-600 mb-4" />
-            <p className="text-slate-400 text-lg">No incoming transmissions.</p>
+            <p className="text-slate-400 text-lg">No notifications yet.</p>
           </div>
         ) : (
           <div className="space-y-4">

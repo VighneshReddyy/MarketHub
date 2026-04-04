@@ -38,11 +38,11 @@ export default async function RatingsPage() {
         <rect width="100%" height="100%" filter="url(#noise)" />
       </svg>
       
-      <TopNav userName={user.name} />
+      <TopNav userName={user.name} backLink="/dashboard" />
 
       <main className="flex-1 w-full max-w-4xl mx-auto p-6 md:p-12 relative z-10">
-        <h1 className="font-serif italic text-5xl md:text-6xl text-white mb-10">
-          Reputation Metrics
+        <h1 className="font-serif italic text-4xl md:text-5xl text-white mb-10">
+          My Reviews
         </h1>
 
         <div className="flex flex-col items-center justify-center p-12 border border-white/5 bg-black/40 backdrop-blur-xl rounded-2xl shadow-[inset_0_0_20px_rgba(255,255,255,0.02)] border-t-amber-500/20 mb-10">
@@ -51,8 +51,8 @@ export default async function RatingsPage() {
               <Star key={i} className={`w-8 h-8 ${i <= Math.round(avgRating) ? 'text-amber-500 fill-amber-500' : 'text-slate-700 fill-slate-700'}`} />
             ))}
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">{avgRating > 0 ? `${avgRating.toFixed(1)} / 5.0 Average Rating` : 'No Standing Yet'}</h2>
-          <p className="text-slate-400">{reviews.length} written reviews found on your profile.</p>
+          <h2 className="text-2xl font-bold text-white mb-2">{avgRating > 0 ? `${avgRating.toFixed(1)} / 5.0 Average Rating` : 'No rating yet'}</h2>
+          <p className="text-slate-400">{reviews.length > 0 ? `${reviews.length} review${reviews.length !== 1 ? 's' : ''} on your profile` : 'No reviews yet'}</p>
         </div>
 
         <div className="space-y-4">
@@ -73,7 +73,7 @@ export default async function RatingsPage() {
                   ))}
                 </div>
               </div>
-              <p className="text-slate-300">"{rev.comment}"</p>
+              <p className="text-slate-300">&quot;{rev.comment}&quot;</p>
             </div>
           ))}
         </div>

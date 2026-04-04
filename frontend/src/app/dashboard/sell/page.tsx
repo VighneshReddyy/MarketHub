@@ -24,7 +24,7 @@ export default async function SellPage() {
 
   return (
     <div className="min-h-screen bg-[#121212] text-slate-100 flex flex-col font-sans">
-      <TopNav userName={user.name} title="MarketPlace List Item" backLink="/dashboard" />
+      <TopNav userName={user.name} title="List an Item" backLink="/dashboard" />
 
       <main className="flex-1 w-full max-w-7xl mx-auto p-6 md:p-12 relative z-10 flex flex-col md:flex-row gap-8">
         <div className="absolute top-0 right-0 w-[60%] h-[60%] rounded-full bg-cyan-600/10 blur-[150px] pointer-events-none -z-10" />

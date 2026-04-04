@@ -38,62 +38,47 @@ export default async function ManagePage() {
     [user.user_id]
   ) as any[];
 
-  const activeCount = listings.filter((l: any) => l.status === 'available').length;
-  const totalListedValue = listings.filter((l: any) => l.status === 'available').reduce((acc: number, curr: any) => acc + parseFloat(curr.price), 0);
-  const pendingCount = purchases.filter((p: any) => p.status !== 'delivered').length;
-
   return (
     <div className="min-h-screen bg-[#060a14] text-slate-100 flex flex-col font-sans overflow-x-hidden relative">
-      {/* Portfolio Dot Matrix Overlay */}
       <div className="absolute inset-0 bg-dot-matrix pointer-events-none z-0" />
       
       <TopNav userName={user.name} backLink="/dashboard" />
 
-      {/* Sticky Top HUD Header */}
-      <div className="sticky top-0 z-40 bg-[#060a14]/80 backdrop-blur-xl border-b border-white/5 py-3 w-full">
-         <div className="max-w-6xl mx-auto px-6 md:px-12 flex justify-between items-center text-[11px] font-jetbrains tracking-widest uppercase text-slate-400">
-            <span>PORTFOLIO TERMINAL <span className="text-white/20 mx-2">|</span> {user.name}</span>
-            <span className="flex gap-4">
-              <span className="text-teal-400">{activeCount} ACTIVE LST</span>
-              <span className="text-white">₹{totalListedValue.toLocaleString()} VOL</span>
-              <span className="text-violet-400">{pendingCount} PND DELV</span>
-            </span>
-         </div>
-      </div>
-
-      <main className="flex-1 w-full max-w-6xl mx-auto p-6 md:px-12 relative z-10 flex flex-col gap-20 py-12">
+      <main className="flex-1 w-full max-w-6xl mx-auto p-6 md:px-12 relative z-10 flex flex-col gap-16 py-12">
         
-        {/* Active Listings Sector */}
+        {/* My Listings */}
         <section>
-           <h2 className="text-5xl font-bebas tracking-wider text-white mb-2 flex items-baseline justify-between">
-              YOUR ACTIVE LISTINGS
-              <span className="text-sm font-jetbrains text-teal-500 tracking-widest opacity-50">SECTOR / 01</span>
-           </h2>
-           <hr className="border-teal-500/50 mb-8 border-t-[2px] animate-line-draw transform scale-x-0 origin-left" />
+           <div className="flex items-baseline justify-between mb-6">
+             <h2 className="text-3xl font-bold text-white">My Listings</h2>
+             <span className="text-sm text-slate-500">
+               {listings.filter((l: any) => l.status === 'available').length} active
+             </span>
+           </div>
+           <hr className="border-teal-500/30 mb-8 border-t" />
            
            {listings.length === 0 ? (
-             <p className="font-jetbrains text-sm text-slate-500 border-l border-white/10 pl-4 py-2 uppercase tracking-wide">
-               Zero active assets on the network.
-             </p>
+             <div className="flex flex-col items-center justify-center p-12 border border-white/5 bg-black/30 rounded-2xl backdrop-blur-md">
+               <p className="text-slate-500 text-sm">You have no active listings.</p>
+             </div>
            ) : (
              <div className="flex flex-col gap-4">
                {listings.map((item: any) => (
-                 <div key={item.item_id} className="group bg-black/40 border border-white/5 relative p-6 flex flex-col md:flex-row justify-between md:items-center gap-6 hover:bg-white/5 transition-colors overflow-hidden">
-                    <div className={`absolute left-0 top-0 bottom-0 w-1 ${item.status === 'available' ? 'bg-teal-500' : 'bg-amber-500'}`} />
+                 <div key={item.item_id} className="group bg-black/40 border border-white/5 relative p-6 flex flex-col md:flex-row justify-between md:items-center gap-6 hover:bg-white/5 transition-colors overflow-hidden rounded-xl">
+                    <div className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-xl ${item.status === 'available' ? 'bg-teal-500' : 'bg-amber-500'}`} />
                     
                     <div className="pl-4 flex-1">
-                      <h3 className="font-serif text-3xl font-semibold text-white mb-1 tracking-tight truncate max-w-xl">{item.title}</h3>
-                      <div className="flex items-center gap-5 font-jetbrains text-xs uppercase tracking-widest text-slate-500">
-                         <span className={item.status === 'available' ? 'text-teal-500/70' : 'text-amber-500/70'}>
-                           [{item.status}]
+                      <h3 className="font-semibold text-xl text-white mb-1 truncate max-w-xl">{item.title}</h3>
+                      <div className="flex items-center gap-4 text-xs text-slate-500 mt-1">
+                         <span className={`capitalize ${item.status === 'available' ? 'text-teal-400' : 'text-amber-400'}`}>
+                           {item.status}
                          </span>
-                         <span>VOL: {item.category_name}</span>
-                         <span>CND: {item.condition_type}</span>
+                         <span>{item.category_name}</span>
+                         <span className="capitalize">{item.condition_type}</span>
                       </div>
                     </div>
 
                     <div className="pl-4 md:pl-0 flex items-center justify-between md:flex-col md:items-end gap-2 shrink-0">
-                       <span className="font-jetbrains text-2xl text-white font-bold tracking-tight">₹{parseFloat(item.price).toLocaleString()}</span>
+                       <span className="text-xl text-white font-bold">₹{parseFloat(item.price).toLocaleString()}</span>
                        {item.status === 'available' && (
                          <ManageActions itemId={item.item_id} />
                        )}
@@ -105,45 +90,47 @@ export default async function ManagePage() {
         </section>
 
 
-        {/* Execution History */}
+        {/* Purchase History */}
         <section>
-           <h2 className="text-5xl font-bebas tracking-wider text-white mb-2 flex items-baseline justify-between mt-10">
-              PURCHASE HISTORY
-              <span className="text-sm font-jetbrains text-violet-500 tracking-widest opacity-50">SECTOR / 02</span>
-           </h2>
-           <hr className="border-violet-500/50 mb-8 border-t-[2px] animate-line-draw transform scale-x-0 origin-left" style={{ animationDelay: '200ms' }} />
+           <div className="flex items-baseline justify-between mb-6">
+             <h2 className="text-3xl font-bold text-white">Purchase History</h2>
+             <span className="text-sm text-slate-500">
+               {purchases.length} order{purchases.length !== 1 ? 's' : ''}
+             </span>
+           </div>
+           <hr className="border-violet-500/30 mb-8 border-t" />
            
            {purchases.length === 0 ? (
-             <p className="font-jetbrains text-sm text-slate-500 border-l border-white/10 pl-4 py-2 uppercase tracking-wide">
-               Zero external executions registered.
-             </p>
+             <div className="flex flex-col items-center justify-center p-12 border border-white/5 bg-black/30 rounded-2xl backdrop-blur-md">
+               <p className="text-slate-500 text-sm">You haven&apos;t made any purchases yet.</p>
+             </div>
            ) : (
              <div className="flex flex-col gap-4">
                {purchases.map((order: any) => (
-                 <div key={order.order_id} className="bg-black/40 border border-white/5 p-6 flex flex-col sm:flex-row justify-between sm:items-center gap-4 relative overflow-hidden">
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-violet-500/30" />
+                 <div key={order.order_id} className="bg-black/40 border border-white/5 p-6 flex flex-col sm:flex-row justify-between sm:items-center gap-4 relative overflow-hidden rounded-xl">
+                    <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-xl bg-violet-500/40" />
                     
                     <div className="pl-4 flex items-center gap-6">
-                       {/* Animated pulsing ring avatar */}
-                       <div className="relative flex items-center justify-center w-12 h-12 shrink-0">
+                       {/* Status indicator */}
+                       <div className="relative flex items-center justify-center w-10 h-10 shrink-0">
                           <div className={`absolute inset-0 rounded-full border-2 ${order.status !== 'delivered' ? 'border-teal-400 animate-pulse' : 'border-green-500'}`} style={{ animationDuration: '3s' }} />
-                          <div className={`w-8 h-8 rounded-full ${order.status !== 'delivered' ? 'bg-teal-400/20' : 'bg-green-500/20'}`} />
+                          <div className={`w-6 h-6 rounded-full ${order.status !== 'delivered' ? 'bg-teal-400/20' : 'bg-green-500/20'}`} />
                        </div>
                        
                        <div>
-                         <h3 className="font-serif text-2xl font-medium text-white mb-1 truncate max-w-md">{order.title}</h3>
-                         <div className="font-jetbrains text-[10px] uppercase tracking-widest text-slate-500">
-                           REC #{order.order_id} • VOL TRANSFER
+                         <h3 className="font-semibold text-lg text-white mb-0.5 truncate max-w-md">{order.title}</h3>
+                         <div className="text-xs text-slate-500">
+                           Order #{order.order_id}
                          </div>
                        </div>
                     </div>
                     
                     <div className="pl-4 sm:pl-0 flex flex-col sm:items-end gap-2">
-                       <span className="font-jetbrains flex items-center justify-center text-xs tracking-widest px-3 py-1 bg-white/5 rounded-full uppercase border border-white/5 w-fit">
+                       <span className="flex items-center justify-center text-xs font-medium tracking-wide px-3 py-1 bg-white/5 rounded-full border border-white/5 w-fit capitalize">
                           {order.status !== 'delivered' && <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2 animate-slow-blink" />}
                           {order.status}
                        </span>
-                       <span className="font-jetbrains text-lg text-slate-300">₹{parseFloat(order.price).toLocaleString()}</span>
+                       <span className="text-slate-300 font-semibold">₹{parseFloat(order.price).toLocaleString()}</span>
                     </div>
                  </div>
                ))}
