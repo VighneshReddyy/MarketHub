@@ -70,13 +70,19 @@ export async function createListing(formData: FormData) {
       [user.user_id, category_id, title, description, price, condition, image_url, usage_months]
     ) as any[];
 
-    // The after_item_insert trigger fires automatically to notify Alert subscribers.
-    // Also call the procedure to notify BuyerRequests matches.
+    // Handle notifications natively to avoid TiDB procedure definer issues
     const newItemId = insertResult.insertId;
-    await db.query(
-      "CALL MatchItemWithRequests(?, ?, ?, ?)",
-      [newItemId, category_id, price, title]
-    );
+    try {
+      await db.query(
+        `INSERT INTO Notifications (user_id, item_id, message, is_read, created_at)
+         SELECT buyer_id, ?, CONCAT('An item matching your request "', title, '" has just been listed: ', ?), 0, NOW()
+         FROM BuyerRequests
+         WHERE category_id = ? AND max_price >= ?`,
+        [newItemId, title, category_id, price]
+      );
+    } catch (e) {
+      console.warn("Failed to notify buyer requests: ", e);
+    }
 
     revalidatePath("/dashboard/buy");
     revalidatePath("/dashboard/manage");
@@ -84,7 +90,7 @@ export async function createListing(formData: FormData) {
     return { success: true };
   } catch (error: any) {
     console.error("Listing error:", error);
-    return { error: "Failed to create listing" };
+    return { error: `Failed to create listing: ${error.message}` };
   }
 }
 

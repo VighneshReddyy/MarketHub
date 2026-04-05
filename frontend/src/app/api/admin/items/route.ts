@@ -23,7 +23,17 @@ export async function DELETE(req: NextRequest) {
 
   const db = getDbConnection();
   try {
-    await db.query(`UPDATE Items SET status = 'removed' WHERE item_id = ?`, [item_id]);
+    // Hard delete: Clean up child records completely to avoid foreign key errors
+    await db.query(`DELETE FROM Payments WHERE order_id IN (SELECT order_id FROM Orders WHERE item_id = ?)`, [item_id]);
+    await db.query(`DELETE FROM Reviews WHERE order_id IN (SELECT order_id FROM Orders WHERE item_id = ?)`, [item_id]);
+    await db.query(`DELETE FROM Orders WHERE item_id = ?`, [item_id]);
+    await db.query(`DELETE FROM Notifications WHERE item_id = ?`, [item_id]);
+    await db.query(`DELETE FROM ItemMedia WHERE item_id = ?`, [item_id]);
+    await db.query(`DELETE FROM Reports WHERE item_id = ?`, [item_id]);
+    
+    // Finally delete the item itself
+    await db.query(`DELETE FROM Items WHERE item_id = ?`, [item_id]);
+    
     return NextResponse.json({ success: true });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });

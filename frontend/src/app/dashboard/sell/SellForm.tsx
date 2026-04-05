@@ -3,12 +3,13 @@
 import { createListing } from "@/app/actions/market";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { Loader2, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function SellForm({ categories }: { categories: any[] }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [condition, setCondition] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -32,9 +33,25 @@ export function SellForm({ categories }: { categories: any[] }) {
       alert(result.error);
       setIsLoading(false);
     } else {
-      router.push("/dashboard/buy");
+      setIsSuccess(true);
+      setTimeout(() => {
+        router.push("/dashboard/manage");
+      }, 3000);
     }
   };
+
+  if (isSuccess) {
+    return (
+      <motion.div initial={{opacity:0, scale:0.95}} animate={{opacity:1, scale:1}} className="flex flex-col items-center justify-center py-20 text-center">
+        <div className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(34,197,94,0.3)]">
+           <CheckCircle className="w-12 h-12 text-green-400" />
+        </div>
+        <h2 className="text-4xl font-syne font-bold text-slate-100 mb-3 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-emerald-600">Listing is Live!</h2>
+        <p className="text-slate-400 text-lg">Your item is now available in the marketplace.</p>
+        <p className="text-sm text-slate-500 mt-12 animate-pulse font-mono tracking-wider">Redirecting to management...</p>
+      </motion.div>
+    );
+  }
 
   const inputClass = "peer w-full bg-transparent border-b border-green-500/20 text-green-400 font-jetbrains text-lg focus:outline-none placeholder-transparent py-2";
   const labelClass = "absolute left-0 top-8 text-slate-500 font-syne text-xl transition-all duration-300 peer-focus:-translate-y-8 peer-focus:text-xs peer-focus:text-green-500 peer-focus:tracking-widest uppercase peer-[:not(:placeholder-shown)]:-translate-y-8 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-green-500 peer-[:not(:placeholder-shown)]:tracking-widest";

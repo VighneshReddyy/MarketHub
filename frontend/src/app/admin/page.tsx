@@ -27,6 +27,7 @@ export default async function AdminLogsPage() {
     FROM Items i
     LEFT JOIN Users u ON i.seller_id = u.user_id
     LEFT JOIN Categories c ON i.category_id = c.category_id
+    WHERE i.status != 'removed'
     ORDER BY i.created_at DESC
   `);
   
