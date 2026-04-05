@@ -1,6 +1,8 @@
+-- Triggers for Electronic Marketplace
+
 -- Delete existing triggers if they exist
 DROP TRIGGER IF EXISTS after_item_insert;
-DROP TRIGGER IF EXISTS after_order_insert;
+DROP TRIGGER IF EXISTS after_order_insert_notify;
 
 DELIMITER $$
 
@@ -16,4 +18,18 @@ BEGIN
       AND NEW.price BETWEEN min_price AND max_price
       AND (condition_type = 'any' OR condition_type = NEW.condition_type);
 END$$
+
+-- Trigger to notify seller when an order is placed
+CREATE TRIGGER after_order_insert_notify
+AFTER INSERT ON Orders
+FOR EACH ROW
+BEGIN
+    INSERT INTO Notifications(user_id, item_id, message)
+    VALUES (
+        NEW.seller_id,
+        NEW.item_id,
+        CONCAT('Your item has been ordered (Order ID: ', NEW.order_id, ')')
+    );
+END$$
+
 DELIMITER ;

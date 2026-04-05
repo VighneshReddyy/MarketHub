@@ -24,10 +24,12 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
   let sql = `
      SELECT 
        i.item_id, i.title, i.description, i.price, i.condition_type, i.image_url, i.usage_months,
+       i.seller_id,
        u.name as seller_name, 
        c.name as category_name,
        COALESCE(AVG(r.rating), 0) as seller_rating,
-       COUNT(r.review_id) as seller_review_count
+       COUNT(r.review_id) as seller_review_count,
+       (SELECT COUNT(*) FROM Orders WHERE seller_id = i.seller_id AND status = 'completed') as seller_sales
      FROM Items i 
      JOIN Users u ON i.seller_id = u.user_id 
      JOIN Categories c ON i.category_id = c.category_id
@@ -41,9 +43,13 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
     queryParams.push(`%${searchQuery}%`, `%${searchQuery}%`);
   }
   
-  sql += ` GROUP BY i.item_id, u.name, c.name ORDER BY i.created_at DESC`;
+  sql += ` GROUP BY i.item_id, i.title, i.description, i.price, i.condition_type, i.image_url, i.usage_months, i.seller_id, u.name, c.name, i.created_at ORDER BY i.created_at DESC`;
   
-  const [items] = await db.query(sql, queryParams) as any[];
+  const [dbItems] = await db.query(sql, queryParams) as any[];
+  const items = dbItems.map((item: any) => ({
+    ...item,
+    is_trusted: item.seller_rating >= 4 && item.seller_sales >= 5
+  }));
 
   return (
     <div className="min-h-screen bg-[#121212] text-slate-100 flex flex-col font-sans">

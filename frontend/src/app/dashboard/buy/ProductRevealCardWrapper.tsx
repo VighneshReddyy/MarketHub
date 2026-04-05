@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ProductRevealCard } from "@/components/ui/product-reveal-card";
 import { purchaseItem, reportItem } from "@/app/actions/market";
 import { useRouter } from "next/navigation";
-import { X, ShoppingCart, Flag, User, Clock, Tag, CheckCircle } from "lucide-react";
+import { X, ShoppingCart, Flag, User, Clock, Tag, CheckCircle, ShieldCheck } from "lucide-react";
 
 export function ProductRevealCardWrapper({ item }: { item: any }) {
   const router = useRouter();
@@ -108,14 +108,19 @@ export function ProductRevealCardWrapper({ item }: { item: any }) {
                 </div>
               ) : (
                 <>
-                  <div>
-                    <h2 className="text-2xl font-bold text-white mb-1">{item.title}</h2>
-                    <div className="flex items-center gap-4 text-sm text-slate-400">
-                      <span className="flex items-center gap-1.5"><User className="w-3.5 h-3.5" /> {item.seller_name}</span>
-                      <span className="flex items-center gap-1.5"><Tag className="w-3.5 h-3.5" /> {item.category_name}</span>
-                      {item.usage_months && <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {item.usage_months} months used</span>}
+                    <div>
+                      <h2 className="text-2xl font-bold text-white mb-1">{item.title}</h2>
+                      <div className="flex flex-wrap items-center gap-3 text-sm text-slate-400">
+                        <span className="flex items-center gap-1.5"><User className="w-3.5 h-3.5" /> {item.seller_name}</span>
+                        {item.is_trusted ? (
+                          <span className="flex items-center gap-1 text-xs font-semibold text-teal-400 bg-teal-400/10 border border-teal-400/20 px-2 py-0.5 rounded-full">
+                            <ShieldCheck className="w-3 h-3" /> Trusted Seller
+                          </span>
+                        ) : null}
+                        <span className="flex items-center gap-1.5"><Tag className="w-3.5 h-3.5" /> {item.category_name}</span>
+                        {item.usage_months && <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {item.usage_months} months used</span>}
+                      </div>
                     </div>
-                  </div>
 
                   {item.description && (
                     <p className="text-slate-300 text-sm leading-relaxed border-l-2 border-white/10 pl-3">

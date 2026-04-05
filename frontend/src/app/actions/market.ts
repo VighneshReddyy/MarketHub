@@ -30,10 +30,11 @@ export async function purchaseItem(itemId: number, price: number) {
 
     const sellerId = rows[0].seller_id;
 
-    // Send Notification to Seller
+    // Insert the order — the after_order_insert_notify trigger
+    // automatically sends a notification to the seller.
     await db.query(
-      "INSERT INTO Notifications (user_id, item_id, message, is_read) VALUES (?, ?, ?, 0)",
-      [sellerId, itemId, `Someone is interested in purchasing your item #${itemId}!`]
+      "INSERT INTO Orders (buyer_id, seller_id, item_id, price, status) VALUES (?, ?, ?, ?, 'pending')",
+      [buyerId, sellerId, itemId, price]
     );
 
     return { success: true };
@@ -64,9 +65,17 @@ export async function createListing(formData: FormData) {
     }
 
     const db = getDbConnection();
-    await db.query(
+    const [insertResult] = await db.query(
       "INSERT INTO Items (seller_id, category_id, title, description, price, condition_type, status, image_url, usage_months) VALUES (?, ?, ?, ?, ?, ?, 'available', ?, ?)",
       [user.user_id, category_id, title, description, price, condition, image_url, usage_months]
+    ) as any[];
+
+    // The after_item_insert trigger fires automatically to notify Alert subscribers.
+    // Also call the procedure to notify BuyerRequests matches.
+    const newItemId = insertResult.insertId;
+    await db.query(
+      "CALL MatchItemWithRequests(?, ?, ?, ?)",
+      [newItemId, category_id, price, title]
     );
 
     revalidatePath("/dashboard/buy");
@@ -178,5 +187,43 @@ export async function updateListing(itemId: number, data: { price?: string; desc
   } catch (error: any) {
     console.error("Update error:", error);
     return { error: "Failed to update listing" };
+  }
+}
+
+// ─── Accept an order — calls AcceptOrder stored procedure ────────────────────
+export async function acceptOrder(orderId: number, itemId: number) {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("auth_token")?.value;
+    if (!token) return { error: "Not authenticated" };
+
+    const db = getDbConnection();
+    // AcceptOrder: marks order 'completed' + item 'sold' atomically
+    await db.query("CALL AcceptOrder(?, ?)", [orderId, itemId]);
+
+    revalidatePath("/dashboard/manage");
+    return { success: true };
+  } catch (error: any) {
+    console.error("AcceptOrder error:", error);
+    return { error: "Failed to accept order" };
+  }
+}
+
+// ─── Get seller stats using DB functions ─────────────────────────────────────
+export async function getSellerStats(sellerId: number) {
+  try {
+    const db = getDbConnection();
+    const [rows] = await db.query(
+      `SELECT 
+        (SELECT COUNT(*) FROM Orders WHERE seller_id = ? AND status = 'completed') AS total_sales,
+        (SELECT COALESCE(AVG(rating), 0) FROM Reviews WHERE reviewed_user_id = ?) AS avg_rating`,
+      [sellerId, sellerId]
+    ) as any[];
+    const totalSales = rows[0]?.total_sales ?? 0;
+    const avgRating = rows[0]?.avg_rating ?? 0;
+    return { total_sales: totalSales, is_trusted: avgRating >= 4 && totalSales >= 5 };
+  } catch (error: any) {
+    console.error("getSellerStats error:", error);
+    return { total_sales: 0, is_trusted: false };
   }
 }
