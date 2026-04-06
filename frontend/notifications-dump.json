@@ -1,0 +1,82 @@
+[
+  {
+    "notification_id": 90002,
+    "user_id": 5,
+    "item_id": 120001,
+    "message": "An item matching your request \"Android phone\" has just been listed: Nothing Phone 2",
+    "is_read": 0,
+    "created_at": "2026-04-05T07:40:59.000Z"
+  },
+  {
+    "notification_id": 90001,
+    "user_id": 2,
+    "item_id": 120001,
+    "message": "An item matching your request \"Looking for iPhone\" has just been listed: Nothing Phone 2",
+    "is_read": 0,
+    "created_at": "2026-04-05T07:40:59.000Z"
+  },
+  {
+    "notification_id": 60002,
+    "user_id": 3,
+    "item_id": 3,
+    "message": "Someone is interested in purchasing your item #3!",
+    "is_read": 0,
+    "created_at": "2026-04-04T01:06:10.000Z"
+  },
+  {
+    "notification_id": 60001,
+    "user_id": 3,
+    "item_id": 3,
+    "message": "Someone is interested in purchasing your item #3!",
+    "is_read": 0,
+    "created_at": "2026-04-04T01:00:42.000Z"
+  },
+  {
+    "notification_id": 30002,
+    "user_id": 3,
+    "item_id": 3,
+    "message": "Someone is interested in purchasing your item #3!",
+    "is_read": 0,
+    "created_at": "2026-04-04T00:52:17.000Z"
+  },
+  {
+    "notification_id": 30001,
+    "user_id": 5,
+    "item_id": 5,
+    "message": "Someone is interested in purchasing your item #5!",
+    "is_read": 0,
+    "created_at": "2026-04-04T00:52:11.000Z"
+  },
+  {
+    "notification_id": 5,
+    "user_id": 2,
+    "item_id": 5,
+    "message": "New matching item: HP Laptop",
+    "is_read": 1,
+    "created_at": "2026-04-03T05:11:30.000Z"
+  },
+  {
+    "notification_id": 4,
+    "user_id": 5,
+    "item_id": 4,
+    "message": "New matching item: Samsung Galaxy S21",
+    "is_read": 0,
+    "created_at": "2026-04-03T05:11:30.000Z"
+  },
+  {
+    "notification_id": 3,
+    "user_id": 1,
+    "item_id": 3,
+    "message": "New matching item: Office Chair",
+    "is_read": 0,
+    "created_at": "2026-04-03T05:11:30.000Z"
+  },
+  {
+    "notification_id": 2,
+    "user_id": 3,
+    "item_id": 2,
+    "message": "New matching item: Dell Laptop",
+    "is_read": 1,
+    "created_at": "2026-04-03T05:11:30.000Z"
+  }
+]

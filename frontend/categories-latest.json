@@ -1,0 +1,62 @@
+[
+  {
+    "category_id": 1,
+    "name": "Electronics",
+    "parent_id": null
+  },
+  {
+    "category_id": 2,
+    "name": "Mobiles",
+    "parent_id": 1
+  },
+  {
+    "category_id": 3,
+    "name": "Laptops",
+    "parent_id": 1
+  },
+  {
+    "category_id": 4,
+    "name": "Home & Furniture",
+    "parent_id": null
+  },
+  {
+    "category_id": 30001,
+    "name": "Fashion & Clothing",
+    "parent_id": null
+  },
+  {
+    "category_id": 30002,
+    "name": "Books & Stationery",
+    "parent_id": null
+  },
+  {
+    "category_id": 30003,
+    "name": "Sports & Fitness",
+    "parent_id": null
+  },
+  {
+    "category_id": 30004,
+    "name": "Vehicles",
+    "parent_id": null
+  },
+  {
+    "category_id": 30005,
+    "name": "Gaming",
+    "parent_id": null
+  },
+  {
+    "category_id": 30006,
+    "name": "Music Instruments",
+    "parent_id": null
+  },
+  {
+    "category_id": 30007,
+    "name": "Movies & Collectibles",
+    "parent_id": null
+  },
+  {
+    "category_id": 30008,
+    "name": "Toys & Hobbies",
+    "parent_id": null
+  }
+]

@@ -30,11 +30,15 @@ export async function purchaseItem(itemId: number, price: number) {
 
     const sellerId = rows[0].seller_id;
 
-    // Insert the order — the after_order_insert_notify trigger
-    // automatically sends a notification to the seller.
+    // Insert the order manually instead of relying on missing DB triggers
     await db.query(
       "INSERT INTO Orders (buyer_id, seller_id, item_id, price, status) VALUES (?, ?, ?, ?, 'pending')",
       [buyerId, sellerId, itemId, price]
+    );
+
+    await db.query(
+      "INSERT INTO Notifications (user_id, item_id, message, is_read, created_at) VALUES (?, ?, 'You have a new order pending!', 0, NOW())",
+      [sellerId, itemId]
     );
 
     return { success: true };
@@ -70,18 +74,32 @@ export async function createListing(formData: FormData) {
       [user.user_id, category_id, title, description, price, condition, image_url, usage_months]
     ) as any[];
 
-    // Handle notifications natively to avoid TiDB procedure definer issues
+    // Match alerts and notify users — two-step approach for reliability
     const newItemId = insertResult.insertId;
+    const numericCategoryId = Number(category_id);
+    const numericPrice = Number(price);
+    console.log(`[createListing] New item ${newItemId} | category=${numericCategoryId} | price=${numericPrice} | condition=${condition}`);
     try {
-      await db.query(
-        `INSERT INTO Notifications (user_id, item_id, message, is_read, created_at)
-         SELECT buyer_id, ?, CONCAT('An item matching your request "', title, '" has just been listed: ', ?), 0, NOW()
-         FROM BuyerRequests
-         WHERE category_id = ? AND max_price >= ?`,
-        [newItemId, title, category_id, price]
-      );
+      const [matchingAlerts] = await db.query(
+        `SELECT alert_id, user_id, category_id, min_price, max_price, condition_type
+         FROM Alerts
+         WHERE category_id = ? AND min_price <= ? AND max_price >= ?`,
+        [numericCategoryId, numericPrice, numericPrice]
+      ) as any[];
+      console.log(`[createListing] Found ${matchingAlerts.length} matching alert(s) for item ${newItemId}`);
+
+      for (const alert of matchingAlerts) {
+        // Skip notifying the seller about their own listing
+        if (alert.user_id === user.user_id) continue;
+        const msg = `A new item matching your alert was just listed: "${title}" — ₹${numericPrice}`;
+        await db.query(
+          `INSERT INTO Notifications (user_id, item_id, message, is_read, created_at) VALUES (?, ?, ?, 0, NOW())`,
+          [alert.user_id, newItemId, msg]
+        );
+        console.log(`[createListing] Notified user ${alert.user_id} for alert ${alert.alert_id}`);
+      }
     } catch (e) {
-      console.warn("Failed to notify buyer requests: ", e);
+      console.error("[createListing] Failed to notify alert users: ", e);
     }
 
     revalidatePath("/dashboard/buy");
@@ -196,7 +214,7 @@ export async function updateListing(itemId: number, data: { price?: string; desc
   }
 }
 
-// ─── Accept an order — calls AcceptOrder stored procedure ────────────────────
+// ─── Accept an order — implement it inline to avoid procedure issues ────────────────────
 export async function acceptOrder(orderId: number, itemId: number) {
   try {
     const cookieStore = await cookies();
@@ -204,8 +222,17 @@ export async function acceptOrder(orderId: number, itemId: number) {
     if (!token) return { error: "Not authenticated" };
 
     const db = getDbConnection();
-    // AcceptOrder: marks order 'completed' + item 'sold' atomically
-    await db.query("CALL AcceptOrder(?, ?)", [orderId, itemId]);
+    // Marks order 'completed' + item 'sold' atomically
+    await db.query("UPDATE Orders SET status = 'completed' WHERE order_id = ?", [orderId]);
+    await db.query("UPDATE Items SET status = 'sold' WHERE item_id = ?", [itemId]);
+
+    const [orders] = await db.query("SELECT buyer_id FROM Orders WHERE order_id = ?", [orderId]) as any[];
+    if (orders.length > 0) {
+      await db.query(
+        "INSERT INTO Notifications (user_id, item_id, message, is_read, created_at) VALUES (?, ?, 'Your order was accepted!', 0, NOW())",
+        [orders[0].buyer_id, itemId]
+      );
+    }
 
     revalidatePath("/dashboard/manage");
     return { success: true };

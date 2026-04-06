@@ -1,0 +1,20 @@
+[
+  {
+    "item_id": 150003,
+    "title": "iPhone 16",
+    "category_id": 30001,
+    "price": "89000.00"
+  },
+  {
+    "item_id": 150002,
+    "title": "iPhone 16",
+    "category_id": 1,
+    "price": "88000.00"
+  },
+  {
+    "item_id": 150001,
+    "title": "iPhone 16",
+    "category_id": 1,
+    "price": "89000.00"
+  }
+]

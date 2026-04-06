@@ -1,0 +1,42 @@
+[
+  {
+    "alert_id": 120001,
+    "user_id": 3,
+    "category_id": 1,
+    "min_price": "0.00",
+    "max_price": "90000.00",
+    "condition_type": "new"
+  },
+  {
+    "alert_id": 90001,
+    "user_id": 1,
+    "category_id": 4,
+    "min_price": "0.00",
+    "max_price": "56000.00",
+    "condition_type": "used"
+  },
+  {
+    "alert_id": 60001,
+    "user_id": 1,
+    "category_id": 2,
+    "min_price": "0.00",
+    "max_price": "45000.00",
+    "condition_type": "new"
+  },
+  {
+    "alert_id": 30001,
+    "user_id": 1,
+    "category_id": 1,
+    "min_price": "0.00",
+    "max_price": "1000.00",
+    "condition_type": "new"
+  },
+  {
+    "alert_id": 5,
+    "user_id": 2,
+    "category_id": 3,
+    "min_price": "60000.00",
+    "max_price": "90000.00",
+    "condition_type": "new"
+  }
+]
